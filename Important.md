@@ -40,9 +40,9 @@ Circuit proposal: Have a 3.3 V supply voltage connected to a 10 kΩ resistor con
 
 ### Acoustic:
 - [ ] Determine a suitable soln. to detect acoustic signals
-- [ ] Determine a suitable sensor to detect acoustic signals
-- [ ] Place order for the chosen sensor
-- [ ] Approve order for the chosen sensor
+- [x] Determine a suitable sensor to detect acoustic signals
+- [x] Place order for the chosen sensor (Damani should bring this in on Monday - if he doesn't lose it again)
+- [x] Approve order for the chosen sensor
 - [ ] Design circuit to demodulate the signal from the chosen sensor
 - [ ] Analyse results from the circuit
 - [ ] Upload the results to the web interface/app
