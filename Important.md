@@ -28,6 +28,8 @@ Rock properties:
 
 > Information for writing report on reed switch: https://uk.rs-online.com/web/generalDisplay.html?id=ideas-and-advice/reed-switches-guide. Order has been placed for two reed switches. [Data sheet attached] [Reed switch datasheet.pdf](https://github.com/shekratul10/EEProject/files/8786346/Reed.switch.datasheet.pdf) Just like a regular switch, activated by an external magnetic force -> can use a digital pin on the Adafruit and report true/false if a signal is received at the corresponding pin. Detects just the presence of a magnetic field detected from the rock. Since the polarity of the rock (one of the six) is not given, require two reed switches to detect north and south magnetic poles. May use two digital pins. Then use the data from the table above to determine the rocks correctly. We expect this to be complete within 1-2 days of the Reed switches being delivered. 
 
+Circuit proposal: Have a 3.3 V supply voltage connected to a 10 kΩ resistor connected in series with the Reed switch. Other end on the Reed switch is connected to a digital pin for processing. Code for testing: If <digitalPin> is high, return true (as a magnetic field is detected) otherwise return false. Note we need a circuit to detect if the magnetic field is up or down w.r.t. the rock. 
+
 ### Acoustic:
 - [ ] Determine a suitable soln. to detect acoustic signals
 - [ ] Determine a suitable sensor to detect acoustic signals
