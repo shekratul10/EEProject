@@ -97,6 +97,6 @@ Detecting the modulating frequency (square)
 Number of pins used for sensors/analysis of signals: 4 Digital and 2 Analogue
 
 ### Design ideas
-
+> Large wheels are better than the existing wheels that are provided with the EEE Bug. The wheels from the EE Bug are dogshit. Using larger wheels such as the ones that can be stolen from the robotic labs, are much better, provide additional height and look more heavy duty.
 
 
