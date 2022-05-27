@@ -25,6 +25,12 @@ Rock properties:
 - [ ] Final testing of all functions
 - [ ] Relax until the big day ^^^^^
 
+### UI:
+- [ ] Create a prediction system that returns the rocks based on signal.
+- [ ] Add graphics for rock predictions
+- [ ] Add functionality for Graphs
+- [ ] Once motor control team decides on movement mechanism add controls
+
 ### Magnetic:
 - [x] Determine a suitable soln. to detect magnetic field
 - [x] Determine a suitable sensor to detect magnetic field
