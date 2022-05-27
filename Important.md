@@ -1,4 +1,4 @@
-# EEProject
+# 1st Year EE Project
 
 Group 5/ASHB's Repository for the Electronics Design Project (Summer 2022)
 
