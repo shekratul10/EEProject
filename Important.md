@@ -9,13 +9,21 @@ Rock properties:
 
 
 ## To do:
-- [ ] Magnetic field detection
-- [ ] Acoustic signal detection
-- [ ] IR pulse detection
-- [ ] Radio signal detection
-- [ ] Motor control
-- [ ] Web interface/app
-- [ ] CAD + new EEE Rover designs
+(priorities indicated with ^, where mroe ^ represents a great priority)
+- [ ] Magnetic field detection ^^
+- [ ] Acoustic signal detection ^^
+- [ ] IR pulse detection ^^
+- [ ] Radio signal detection ^^^
+- [ ] Motor control ^^^
+- [ ] Web interface/app ^^^^
+- [ ] CAD + new EEE Rover designs ^
+- [ ] Recording the results of each sensor ^^^
+- [ ] Written report for each section ^^^
+- [ ] Combining the written reports of each sections ^^
+- [ ] Editor reviews the combined reports ^
+- [ ] Another editor proof-reads the changes ^
+- [ ] Final testing of all functions
+- [ ] Relax until the big day ^^^^^
 
 ### Magnetic:
 - [x] Determine a suitable soln. to detect magnetic field
@@ -82,7 +90,7 @@ Detecting the modulating frequency (square)
 ### Resources
 Number of pins used for sensors/analysis of signals: 4 Digital and 2 Analogue
 
-
+### Design ideas
 
 
 
