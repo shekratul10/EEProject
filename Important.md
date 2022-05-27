@@ -1,6 +1,6 @@
 # EEProject
 
-Group 5's Repository for the Electronics Design Project (Summer 2022)
+Group 5/ASHB's Repository for the Electronics Design Project (Summer 2022)
 
 Rock properties:
 
@@ -26,7 +26,7 @@ Rock properties:
 - [ ] Analyse results from the circuit
 - [ ] Upload the results to the web interface/app
 
-> Information for writing report on reed switch: https://uk.rs-online.com/web/generalDisplay.html?id=ideas-and-advice/reed-switches-guide. Order has been placed for two reed switches (currently pending)[Data sheet attached] [Reed switch datasheet.pdf](https://github.com/shekratul10/EEProject/files/8786346/Reed.switch.datasheet.pdf) Just like a regular switch, activated by an external magnetic force -> can use a digital pin on the Adafruit and report true/false if a signal is received at the corresponding pin. Detects just the presence of a magnetic field detected from the rock. Since the polarity of the rock (one of the six) is not given, require two reed switches to detect north and south magnetic poles. May use two digital pins. Then use the data from the table above to determine the rocks correctly. We expect this to be complete within 1-2 days of the Reed switches being delivered. 
+> Information for writing report on reed switch: https://uk.rs-online.com/web/generalDisplay.html?id=ideas-and-advice/reed-switches-guide. Order has been placed for two reed switches. [Data sheet attached] [Reed switch datasheet.pdf](https://github.com/shekratul10/EEProject/files/8786346/Reed.switch.datasheet.pdf) Just like a regular switch, activated by an external magnetic force -> can use a digital pin on the Adafruit and report true/false if a signal is received at the corresponding pin. Detects just the presence of a magnetic field detected from the rock. Since the polarity of the rock (one of the six) is not given, require two reed switches to detect north and south magnetic poles. May use two digital pins. Then use the data from the table above to determine the rocks correctly. We expect this to be complete within 1-2 days of the Reed switches being delivered. 
 
 ### Acoustic:
 - [ ] Determine a suitable soln. to detect acoustic signals
@@ -49,4 +49,28 @@ Rock properties:
 - [ ] Analyse results from the circuit (determine the frequency of the pulse)
 - [ ] Upload the results to the web interface/app
 
-> The phototransistor is a light-controlled current source; we connect the phototransistor into Vcc and a load resistor and measure the voltage across the resistor. When measuring the IR pulse with the exorock shell, there is a "extremely" weak signal therefore we need to amplify the pulsed signal. Filtering may be required to remove the ambient IR that may interfere with the readings. We can then process the results using the digital pin on the Adafruit board and hopefully determine the frequency of the IR pulse and upload the results to the web interface/app.
+> The phototransistor is a light-controlled current source; we connect the phototransistor into Vcc and a load resistor and measure the voltage across the resistor. When measuring the IR pulse with the exorock shell, there is a "extremely" weak signal therefore we need to amplify the pulsed signal. Filtering may be required to remove the ambient IR that may interfere with the readings. We can then process the results using the digital pin on the Adafruit board and hopefully determine the frequency of the IR pulse and upload the results to the web interface/app. An existing soln. is to use an IR phototransistor SFH 309 FA. [IR phototransistor datasheet.pdf](https://github.com/shekratul10/EEProject/files/8786571/IR.phototransistor.datasheet.pdf) 
+
+### Radio wave:
+- [ ] Create a suitable air-cored inductor
+- [ ] Test if the air-cored inductor can detect radio waves transmitted from the rock
+- [ ] Design a suitable amplifier circuit to amplify the detected signal
+- [ ] (1 of 2) Detect the carrier frequency of the signal (see below)
+- [ ] (2 of 2) Detect the modulating frequency of the signal (see below)
+- [ ] Analyse the results from the carrier frequency circuit
+- [ ] Analyse the results from the modulating frequency circuit
+- [ ] Upload these results to the web interface/app
+- [ ] Match the data to determine a suitable profile for the rock (if they emit radio signals)
+
+Detecting the carrier frequency (sinusoidal)
+> We can apply filtering to the amplified signal to remove the extreme high-frequency noise and some low frequency background radiowaves. We can have a band-pass filter (low pass filter cascade with a high pass filter), where the corner frequencies are the frequency of the carrier signal (61 and 89 kHz). This can be implemented using first order filters, but if we use second order filters with a capacitor and an inductor, then we could use the resonant peak property to make the gain of the signal at the corner frequencies to be much higher than the other frequencies in the passband. From these increased signal peaks, we can analyse this using an analog input and determining the frequency of that input.
+
+Detecting the modulating frequency (square)
+<img width="514" alt="Screenshot 2022-05-27 at 13 30 20" src="https://user-images.githubusercontent.com/106095203/170699524-e8e9d5c6-3b9a-4ed8-a5b6-04a688847c5b.png">
+> Here are some lecture slides from Signals and communications about demodulating an AM signal:
+
+
+
+
+
+
