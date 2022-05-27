@@ -51,26 +51,26 @@ const char pass[] = "exhibition";
 const int groupNumber = 5; // Set your group number to make the IP address constant - only do this on the EEERover network
 
 //Webpage to return when root is requested
-const char webpage[] = 
-R"=====(<html><head><style>
-.btn {background-color: inherit;padding: 14px 28px;font-size: 16px;}
-.btn:hover {background: #eee;}
-.h1:{color:#1a1a1a;}
-</style></head>
-<body>
-<h1>EEE Rover Controls</h1>
-<button class="btn" onclick="update()">Update</button>
-<button class="btn" onclick="forward()">Forward</button>
-<button class="btn" onclick="brakes()">Stop</button>
-<br>IR Detected: <span id="state">False</span>
-</body>
-<script>
-var xhttp = new XMLHttpRequest();
-xhttp.onreadystatechange = function() {if (this.readyState == 4 && this.status == 200) {document.getElementById("state").innerHTML = this.responseText;}};
-function update() {xhttp.open("GET", "/update"); xhttp.send();}
-function forward(){xhttp.open("GET", "/fwd"); xhttp.send();}
-function brakes(){xhttp.open("GET", "/static"); xhttp.send();}
-</script></html>)=====";
+//const char webpage[] = 
+//R"=====(<html><head><style>
+//.btn {background-color: inherit;padding: 14px 28px;font-size: 16px;}
+//.btn:hover {background: #eee;}
+//.h1:{color:#1a1a1a;}
+//</style></head>
+//<body>
+//<h1>EEE Rover Controls</h1>
+//<button class="btn" onclick="update()">Update</button>
+//<button class="btn" onclick="forward()">Forward</button>
+//<button class="btn" onclick="brakes()">Stop</button>
+//<br>IR Detected: <span id="state">False</span>
+//</body>
+//<script>
+//var xhttp = new XMLHttpRequest();
+//xhttp.onreadystatechange = function() {if (this.readyState == 4 && this.status == 200) {document.getElementById("state").innerHTML = this.responseText;}};
+//function update() {xhttp.open("GET", "/update"); xhttp.send();}
+//function forward(){xhttp.open("GET", "/fwd"); xhttp.send();}
+//function brakes(){xhttp.open("GET", "/static"); xhttp.send();}
+//</script></html>)=====";
 
 WiFiWebServer server(80);
 void irUpdate(){
@@ -85,10 +85,16 @@ void irUpdate(){
   }
 }
 void magUpdate(){
-  int val = digitalRead(magRead);
-  if(val==HIGH){
+  int val = analogRead(magRead);
+  
+  Serial.println(val);
+  if(val>270){
     server.sendHeader("Access-Control-Allow-Origin", "*");
-    server.send(200, F("text/plain"), F("True"));
+    server.send(200, F("text/plain"), F("South"));
+  }
+  else if(val<230){
+    server.sendHeader("Access-Control-Allow-Origin", "*");
+    server.send(200, F("text/plain"), F("North"));
   }
   else{
     server.sendHeader("Access-Control-Allow-Origin", "*");
@@ -145,6 +151,7 @@ void handleNotFound()
 
 void setup()
 {
+  
   pinMode(leftwheel, OUTPUT);
   pinMode(LED_BUILTIN, OUTPUT);
   pinMode(magRead, INPUT);
