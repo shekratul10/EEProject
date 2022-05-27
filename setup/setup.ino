@@ -42,79 +42,103 @@
 #define USE_WIFI101           true
 #include <WiFiWebServer.h>
 const int leftwheel = 12;
+const int irRead = 13;
+//10 and 11 are broken it seems
+const int magRead = 9;
+const int radRead = 8;
 const char ssid[] = "EEERover";
 const char pass[] = "exhibition";
 const int groupNumber = 5; // Set your group number to make the IP address constant - only do this on the EEERover network
 
 //Webpage to return when root is requested
-const char webpage[] = \
-"<html><head><style>\
-.btn {background-color: inherit;padding: 14px 28px;font-size: 16px;}\
-.btn:hover {background: #eee;}\
-</style></head>\
-<body>\
-<button class=\"btn\" onclick=\"ledOn()\">LED On</button>\
-<button class=\"btn\" onclick=\"ledOff()\">LED Off</button>\
-<button class=\"btn\" onclick=\"forward()\">Forward</button>\
-<button class=\"btn\" onclick=\"wheeloff()\">Brakes</button>\
-<br>LED STATE: <span id=\"state\">OFF</span>\
-<br>MOTION STATE: <span id=\"motion_state\">OFF</span>\
-<h1>Signals</h1>\
-<br>Radio Detected: <span id=\"Radio\">False</span>\
-</body>\
-<script>\
-var xhttp = new XMLHttpRequest();\
-xhttp.onreadystatechange = function() {if (this.readyState == 4 && this.status == 200) {document.getElementById(\"state\").innerHTML = this.responseText;}};\
-function ledOn() {xhttp.open(\"GET\", \"/on\"); xhttp.send();}\
-function ledOff() {xhttp.open(\"GET\", \"/off\"); xhttp.send();}\
-function forward(){xhttp.open(\"GET\", \"/fwd\"); xhttp.send();}\
-function wheeloff(){xhttp.open(\"GET\", \"/static\"); xhttp.send();}\
-</script></html>";
+const char webpage[] = 
+R"=====(<html><head><style>
+.btn {background-color: inherit;padding: 14px 28px;font-size: 16px;}
+.btn:hover {background: #eee;}
+.h1:{color:#1a1a1a;}
+</style></head>
+<body>
+<h1>EEE Rover Controls</h1>
+<button class="btn" onclick="update()">Update</button>
+<button class="btn" onclick="forward()">Forward</button>
+<button class="btn" onclick="brakes()">Stop</button>
+<br>IR Detected: <span id="state">False</span>
+</body>
+<script>
+var xhttp = new XMLHttpRequest();
+xhttp.onreadystatechange = function() {if (this.readyState == 4 && this.status == 200) {document.getElementById("state").innerHTML = this.responseText;}};
+function update() {xhttp.open("GET", "/update"); xhttp.send();}
+function forward(){xhttp.open("GET", "/fwd"); xhttp.send();}
+function brakes(){xhttp.open("GET", "/static"); xhttp.send();}
+</script></html>)=====";
 
 WiFiWebServer server(80);
-
+void irUpdate(){
+  int val = digitalRead(irRead);
+  if(val==HIGH){
+    server.sendHeader("Access-Control-Allow-Origin", "*");
+    server.send(200, F("text/plain"), F("True"));
+  }
+  else{
+    server.sendHeader("Access-Control-Allow-Origin", "*");
+    server.send(200, F("text/plain"), F("False"));
+  }
+}
+void magUpdate(){
+  int val = digitalRead(magRead);
+  if(val==HIGH){
+    server.sendHeader("Access-Control-Allow-Origin", "*");
+    server.send(200, F("text/plain"), F("True"));
+  }
+  else{
+    server.sendHeader("Access-Control-Allow-Origin", "*");
+    server.send(200, F("text/plain"), F("False"));
+  }
+}
+void radUpdate(){
+  int val = digitalRead(radRead);
+  if(val==HIGH){
+    server.sendHeader("Access-Control-Allow-Origin", "*");
+    server.send(200, F("text/plain"), F("True"));
+  }
+  else{
+    server.sendHeader("Access-Control-Allow-Origin", "*");
+    server.send(200, F("text/plain"), F("False"));
+  }
+}
 //Return the web page
 void handleRoot()
 {
+  
   server.send(200, F("text/html"), webpage);
 }
 
-//Switch LED on and acknowledge
-void ledON()
-{
-  digitalWrite(LED_BUILTIN,1);
-  server.send(200, F("text/plain"), F("ON"));
-}
 
-//Switch LED on and acknowledge
-void ledOFF()
-{
-  digitalWrite(LED_BUILTIN,0);
-  server.send(200, F("text/plain"), F("OFF"));
-}
 
 void forward(){
-  digitalWrite(leftwheel,1);
   
+  
+  digitalWrite(leftwheel,1);
 }
 void wheeloff(){
-  digitalWrite(leftwheel,0);
-
+ 
+  digitalWrite(leftwheel,0); 
 }
+
 //Generate a 404 response with details of the failed request
 void handleNotFound()
 {
-  String message = F("File Not Found\n\n"); 
+  String message = F("File Not Foundnn"); 
   message += F("URI: ");
   message += server.uri();
-  message += F("\nMethod: ");
+  message += F("nMethod: ");
   message += (server.method() == HTTP_GET) ? F("GET") : F("POST");
-  message += F("\nArguments: ");
+  message += F("nArguments: ");
   message += server.args();
-  message += F("\n");
+  message += F("n");
   for (uint8_t i = 0; i < server.args(); i++)
   {
-    message += " " + server.argName(i) + ": " + server.arg(i) + "\n";
+    message += " " + server.argName(i) + ": " + server.arg(i) + "n";
   }
   server.send(404, F("text/plain"), message);
 }
@@ -123,6 +147,9 @@ void setup()
 {
   pinMode(leftwheel, OUTPUT);
   pinMode(LED_BUILTIN, OUTPUT);
+  pinMode(magRead, INPUT);
+  pinMode(radRead, INPUT);
+  pinMode(irRead, INPUT);
   digitalWrite(leftwheel,0);
   digitalWrite(LED_BUILTIN, 0);
   
@@ -133,7 +160,7 @@ void setup()
   //Remove this for faster startup when the USB host isn't attached
   while (!Serial && millis() < 10000);  
 
-  Serial.println(F("\nStarting Web Server"));
+  Serial.println(F("nStarting Web Server"));
 
   //Check WiFi shield is present
   if (WiFi.status() == WL_NO_SHIELD)
@@ -157,14 +184,14 @@ void setup()
 
   //Register the callbacks to respond to HTTP requests
   server.on(F("/"), handleRoot);
-  server.on(F("/on"), ledON);
-  server.on(F("/off"), ledOFF);
+  server.on(F("/ir"), irUpdate);
+  server.on(F("/mag"), magUpdate);
+  server.on(F("/rad"), radUpdate);
   server.on(F("/fwd"), forward);
   server.on(F("/static"), wheeloff);
   server.onNotFound(handleNotFound);
   
   server.begin();
-  
   Serial.print(F("HTTP server started @ "));
   Serial.println(static_cast<IPAddress>(WiFi.localIP()));
 }
@@ -172,5 +199,6 @@ void setup()
 //Call the server polling function in the main loop
 void loop()
 {
+  
   server.handleClient();
 }

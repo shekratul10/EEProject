@@ -6,18 +6,75 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title> REEEMOTE </title>
-    <style>
-        
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <nav>
-        <a href="/html/">HTML</a> |
-        <a href="/css/">CSS</a> |
-        <a href="/js/">JavaScript</a> |
-        <a href="/python/">Python</a>
-    </nav>
+    <h1 , font="arial">REEEMOTE</h1>
+    <h3>Signals</h3>
+    <p>The following section provides information about the sensor status. If the signal is detected it will say True.
+        Otherwise it will say false.</p>
+    <div class="statuses">
+        <div class="status">IR - <span id="irState">False</span></div>
+        <div class="status">Radio - <span id="radState">False</span></div>
+        <div class="status">Magnetic - <span id="magState">False</span></div>
+    </div>
+    <br><button onclick="update()">REFRESH</button>
+    <p>Predicitons about the type of rock are made based on the detection of these signals. </p>
+
+
+    <h3>Motion Controls</h3>
+    <p>These are the controls used for motion.</p>
+    <button onclick="forward()">FORWARD</button>
+    <button onclick="stop()">STOP</button>
 </body>
+
+<script>
+    var xhttp = new XMLHttpRequest();
+    var irReq = new XMLHttpRequest();
+    var radioReq = new XMLHttpRequest();
+    var magReq = new XMLHttpRequest();
+    var ir;
+    var mag;
+    var radio;
+    var pred = "noting";
+    irReq.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            document.getElementById("irState").innerHTML = this.responseText;
+            console.log(this.responseText);
+        }
+    };
+    magReq.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            document.getElementById("magState").innerHTML = this.responseText;
+            console.log(this.responseText);
+        }
+    };
+    radioReq.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            document.getElementById("radState").innerHTML = this.responseText;
+            console.log(this.responseText);
+        }
+    };
+
+    function update() {
+        irReq.open("GET", "http://192.168.0.6/ir");
+        irReq.send();
+        magReq.open("GET", "http://192.168.0.6/mag");
+        magReq.send();
+        radioReq.open("GET", "http://192.168.0.6/rad");
+        radioReq.send();
+    }
+
+    function forward() {
+        xhttp.open("GET", "http://192.168.0.6/fwd");
+        xhttp.send();
+    }
+
+    function stop() {
+        xhttp.open("GET", "http://192.168.0.6/static");
+        xhttp.send();
+    }
+</script>
 
 </html>
