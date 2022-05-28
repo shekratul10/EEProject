@@ -2,6 +2,8 @@
 
 Group 5/ASHB's Repository for the Electronics Design Project (Summer 2022)
 
+**ATTENTION:** Try to avoid using inductors for circuits (excluding the air-cored inductor for radio wave detection) since they exhibit cataffi "undefined behaviour" when subjected to magnetic fields - we are detecting the presence of a magnetic field so it is possible that circuit with inductors to be affected. If you intend to use a second order filter, I suggest using a Sallen Key Filter/amplifier instead.
+
 Rock properties:
 
 
