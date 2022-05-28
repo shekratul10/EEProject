@@ -99,4 +99,29 @@ Number of pins used for sensors/analysis of signals: 4 Digital and 2 Analogue
 ### Design ideas
 > Large wheels are better than the existing wheels that are provided with the EEE Bug. The wheels from the EE Bug are dogshit. Using larger wheels such as the ones that can be stolen from the robotic labs, are much better, provide additional height and look more heavy duty.
 
+### Written report
+Rough plan of what needs to be done for the written report:
+  - [ ] Project Cover page
+  - [ ] Table of contents/contents page for the written report
+  - [ ] Information about the given problem as for context
+  - [ ] Product specification
+  - [ ] Gantt Chart (or equivalent planning roadmap)
+  - [ ] Written reports for each section: magnetic sensor, IR sensor, radio sensor, acoustic sensor, web interface, motor control, CAD and other design changes etc.
+  - [ ] Written report for integration of each sub-system with oneanother
+  - [ ] Written report for test of functions
+  - [ ] Assess the final product against the points given in the product specification
+  - [ ] Evaluation of the project
+  - [ ] References and sources at the end of the document with the appropriate referencing
 
+  For specialist written report, there should be a similar structure between each
+  - [ ] Heading for what section the report is about
+  - [ ] Introduction to the problem given e.g. for magnetic we want to detect the presence of a magnetic field from an unknown rock sample
+  - [ ] Suggest a soln. to the given problem with the help of the given sensor/component used
+  - [ ] Background information about the component e.g. for magnetic we have gone for reed switch and a website has been included describing the workings of the reed switch (make sure to reference appropriately)
+  - [ ] Suggest a suitable circuit and signal processing techniques to solve the problem e.g. for magnetic use a reed switch to send a voltage to a digital pin on the Adafruit board, where we can assess whether a magnetic field is detected with the use of boolean variables
+  - [ ] Testing of the circuit and well as appropriate results e.g. for radio wave we can have oscilloscopes in labs detect the signal picked up by the air-cored inductor
+  - [ ] Refinements and improvements to the circuit to improve performance and reliability, once again have appropriate results to show progression
+  - [ ] For signal processing, whether done on Adafruit or elsewhere, explain what code does e.g. for IR pulse have an algorithm that determines the frequency of the pulsed signal and explain the parts of the code that allows us to determine the frequency
+  - [ ] Testing of the overall system with pictures and diagrams to help explain the results and show that the implementation functions as intended. 
+  - [ ] Have a final circuit schematic included in the document where necessary, where values of the components used e.g. a resistor used in reed switch circuit has a value of 10 kΩ or something similar
+  - [ ] Referencing for research, concepts, similar circuits and code examples at the end of the specialist written report. This should be easy for the editor of the written report to find the references and merge all references across all of the written reports at the end of the document.
