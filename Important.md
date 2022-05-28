@@ -11,10 +11,10 @@ Rock properties:
 
 
 ## To do:
-(priorities indicated with ^, where more ^ represents a great priority)
-- [ ] Magnetic field detection ^^
+(priorities indicated with ^, where more ^ represents a great priority) Also see the list at the bottom of this page.
+- [ ] Magnetic field detection ^
 - [ ] Acoustic signal detection ^^
-- [ ] IR pulse detection ^^
+- [ ] IR pulse detection ^
 - [ ] Radio signal detection ^^^
 - [ ] Motor control ^^^
 - [ ] Web interface/app ^^^^
