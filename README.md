@@ -6,7 +6,7 @@ Gantt chart for the project shows the expected start times and deadlines for eac
 
 ![EE Project Gantt Chart](https://user-images.githubusercontent.com/106095203/170874786-cc7f64eb-d050-46ae-aa13-25eecf843db8.png)
 
-You must to the following:
+You must do the following:
 - [ ] Read important.md daily and feel free to add information that may help others complete their dedicated tasks
 - [ ] Attempt to make progress every day since this is required to meet the deadline
 - [ ] Record all design ideas, design changes and results for the written report of your section
