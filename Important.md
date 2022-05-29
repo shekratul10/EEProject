@@ -14,7 +14,7 @@ Rock properties:
 (priorities indicated with ^, where more ^ represents a great priority) Also see the list at the bottom of this page.
 - [ ] Magnetic field detection ^
 - [ ] Acoustic signal detection ^^
-- [x] IR pulse detection 
+- [x] ~~IR pulse detection~~ 
 - [ ] Radio signal detection ^^^
 - [ ] Motor control ^^^
 - [ ] Web interface/app ^^^^
