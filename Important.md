@@ -10,6 +10,10 @@ Rock properties:
 <img width="623" alt="Screenshot 2022-05-27 at 12 43 34" src="https://user-images.githubusercontent.com/106095203/170692913-9280b7b0-e76c-451f-a7b8-0ea30aa6a381.png">
 
 
+<img width="650" alt="Screenshot 2022-05-29 at 19 43 50" src="https://user-images.githubusercontent.com/106095203/170886613-d42fbb28-ed0c-472e-93cb-3d7952c586f6.png">
+
+
+
 ## To do:
 (priorities indicated with ^, where more ^ represents a great priority) Also see the list at the bottom of this page.
 - [ ] Magnetic field detection ^
