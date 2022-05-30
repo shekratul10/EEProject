@@ -52,7 +52,7 @@ A proposed circuit diagram:
 
 ![Reed switch example circuit](https://user-images.githubusercontent.com/106095203/171034722-02680c6b-d5df-4026-82c3-d38e3c634189.png)
 
-Although an Arduino is shown in this circuit schematic, the pin layout is exactly the same as the ones with the Adafruit Metro M0 express board.
+Although an Arduino is shown in this circuit schematic, the pin layout is exactly the same as the ones with the Adafruit Metro M0 express board. Any digital pin could be used for this application.
 
 We need to detect a magnetic field up and down so we will require two of these circuits. We could use two separate digital pins one for detecting the field up and one for detecting the field down just to keep things simple, but if you see a better/more efficient soln. then go ahead and make changes to this section in Important.md. 
 
