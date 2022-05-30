@@ -1,5 +1,7 @@
 For project information read "Important.md"
 
+**UPDATE: New content added for magnetic field sensing (30.05.22, 17:52)**
+
 Submit code for sensor/motor control here using upload file prompt so that Damani can upload to the web interface
 
 Gantt chart for the project shows the expected start times and deadlines for each task in order to deliver a completed project on time.
