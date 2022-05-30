@@ -30,7 +30,7 @@ Rock properties:
 - [ ] Another editor proof-reads the changes ^
 - [ ] Final testing of all functions
 - [ ] Relax until the big day ^^^^^
-- [ ] **24/06/22: All wear suits to the demo of the EEE Rover ^^^^^^^^^^^^^^^^^^^^^^^^^^^ **
+- [ ] **24/06/22: All wear suits to the demo of the EEE Rover**
 
 ### UI:
 - [ ] Create a prediction system that returns the rocks based on signal.
