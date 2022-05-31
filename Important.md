@@ -74,6 +74,8 @@ As a digital signal, the input will either be low and high and reporting the det
 
 Ultrasound transducer information: https://en.wikipedia.org/wiki/Ultrasonic_transducer
 
+Datasheet for proposed component:[Ultrasonic sensor.pdf](https://github.com/shekratul10/EEProject/files/8804788/Ultrasonic.sensor.pdf)
+
 Use a transducer; converts ultrasound pulses into an AC signal, which we can analyse using the analogue pins on the adafruit to determine its frequency at 40 kHz. May need to use some amplification to the signal, but testing on ultrasound is not possible without the transducer. 
 
 
