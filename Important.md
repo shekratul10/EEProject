@@ -81,6 +81,13 @@ Use a transducer; converts ultrasound pulses into an AC signal, which we can ana
 
 > The acoustic signal transmitted from the rocks are both at 40 kHz, therefore we just need to design a circuit specific for this frequency and detect if it is present from the rock sample. Then use other properties of the rocks (IR and radio) to determine the rock sample being analysed. 
 
+Plan for acoustic processing
+- [ ] Amplify the signal using an amplifier circuit similar to the one used in the IR pulse circuit and try to obtain an amplitude greater than 580 mV (since this is the voltage drop across the diodes available in the labs)
+- [ ] Construct an envelope detector for the amplified signal (see similar notes as radio waves to determine the values0
+- [ ] Feed the output of the envelope detector to an analogue input pin on the arduino/adafruit board
+- [ ] Write some code that can determine the frequency of the analogue signal
+- [ ] Compare the frequency of the signal with some parameters e.g. if the frequency is 40 kHz ± 3 kHz, return true for the detection of the acoustic signal. 
+
 ### Infrared:
 - [x] Determine a suitable soln. to detect Infrared pulses
 - [x] Determine a suitable sensor to detect Infrared pulses
