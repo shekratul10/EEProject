@@ -61,12 +61,14 @@ As a digital signal, the input will either be low and high and reporting the det
 
 ### Acoustic:
 - [ ] Determine a suitable soln. to detect acoustic signals
-- [x] Determine a suitable sensor to detect acoustic signals
-- [x] Place order for the chosen sensor (Damani should bring this in on Monday - if he doesn't lose it again)
-- [x] Approve order for the chosen sensor
+- [ ] Determine a suitable sensor to detect acoustic signals
+- [ ] Place order for the chosen sensor
+- [ ] Approve order for the chosen sensor
 - [ ] Design circuit to demodulate the signal from the chosen sensor
 - [ ] Analyse results from the circuit
 - [ ] Upload the results to the web interface/app
+
+31/05/22: Using the HC-SR04 will not work according to Ed Stott. We will need to use an ultrasound transducer to detect the acoustic signal emitted from the mineral. 
 
 > The acoustic signal transmitted from the rocks are both at 40 kHz, therefore we just need to design a circuit specific for this frequency and detect if it is present from the rock sample. Then use other properties of the rocks (IR and radio) to determine the rock sample being analysed. 
 
