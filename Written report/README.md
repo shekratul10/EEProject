@@ -19,4 +19,5 @@ Here are some suggestions to make writing your written report easier:
 - **Backup** your written report either by onedrive, github or outlook!
 - Use heading formatting in word since this will make it easier to navigate through the whole report and makes it easier for combining the individual reports together
 
-An example of a written report is uploaded: 
+An example of a written report is uploaded: [example report](https://github.com/shekratul10/EEProject/blob/main/Written%20report/Written%20report%20example.docx).
+It is best to download the example report and open in word. 
