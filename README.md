@@ -11,6 +11,7 @@ All important information is here:
 - **We should wear suits or other formal wear to the demo for 24/06/22**
 - Damani could you bring in the HC-SR04 components for sacrifical testing
 - Be aware that digital pins 5,7 & 10 cannot be used on the Adafruit board
+- Damani could you steal some wheels from the Robotics lab in the EE Building
 
 **Here is a Gantt chart, which shows what section of the project should be complete for a set date so we can meet the project deadline ontime (19 June 2022)**
 
@@ -29,12 +30,6 @@ The following needs to be **accomplished** to meet our project goals:
 - [ ] Review the combined written report for final adjustments
 - [ ] Submit the final written report
 
-Here are some suggestions to make writing the written report easier
-- We are required to reference using the IEEE standard, which is similar to Vancouver style referencing, this document provides an extensive guide on how to use this type of referencing: [Vancouver_condensed_guide_2020.pdf](https://github.com/shekratul10/EEProject/files/8809458/Vancouver_condensed_guide_2020.pdf)
-- **Record all** (circuit) design ideas and changes as this will make the written report easier as you show refinements to your design.
-- **Backup** your written report either by onedrive or outlook!
-- Use the heading formatting in word since this will make it easier to navigate through the whole report and makes it easier for combining the individual reports together.
-
 ## Useful information
 Mineral properties:
 
@@ -51,3 +46,5 @@ Resources have been moved here: [IR Pulse](https://github.com/shekratul10/EEProj
 Resources have been moved here: [Magnetic field](https://github.com/shekratul10/EEProject/tree/main/Sensor/Magnetic%20field)
 ## Radio wave sensing
 Resources have been moved here: [Radio Wave](https://github.com/shekratul10/EEProject/tree/main/Sensor/Radio%20Wave)
+## Written Report
+Resources have been moved here: [Written Report](https://github.com/shekratul10/EEProject/tree/main/Written%20report)
