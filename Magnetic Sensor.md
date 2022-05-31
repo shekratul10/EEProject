@@ -15,6 +15,6 @@ A reed switch is a switch activated by an external magnetic field - we can use a
 Although the connected digital pin in the diagram is pin 7 on the Arduino, we could use any digital pin to report the results of the magnetic field circuit.
 
 ### Hints for written report
-Here is some information about how a reed switch works:https://uk.rs-online.com/web/generalDisplay.html?id=ideas-and-advice/reed-switches-guide. 
-And here is the data sheet of the reed switch components we have used:https://github.com/shekratul10/EEProject/files/8786346/Reed.switch.datasheet.pdf
+Here is some information about how a reed switch works: https://uk.rs-online.com/web/generalDisplay.html?id=ideas-and-advice/reed-switches-guide. 
+And here is the data sheet of the reed switch components we have used: https://github.com/shekratul10/EEProject/files/8786346/Reed.switch.datasheet.pdf
 
