@@ -2,6 +2,16 @@
 
 All important information is here:
 
+**IMPORTANT NOTICES AS OF 31/05/22 22:24**
+- Github changes 
+- Damani could you approve the order for the ultrasound transceivers
+- Upload all sensor analysing code to the correct folder in the sensors folder
+- Avoid using inductors in circuits as their impedances **may** be affected by an external magnetic field
+- Make component orders at https://apps.powerapps.com/play/30b4e212-d040-4203-98cc-882acb4edee0?tenantId=2b897507-ee8c-4575-830b-4f8267c3d307 if necessary
+- **We should wear suits or other formal wear to the demo for 24/06/22**
+- Damani could you bring in the HC-SR04 components for sacrifical testing
+- Be aware that digital pins 5,7 & 10 cannot be used on the Adafruit board
+
 **Here is a Gantt chart, which shows what section of the project should be complete for a set date so we can meet the project deadline ontime (19 June 2022)**
 
 ![EE Project Gantt Chart](https://user-images.githubusercontent.com/106095203/170874786-cc7f64eb-d050-46ae-aa13-25eecf843db8.png)
