@@ -70,6 +70,13 @@ As a digital signal, the input will either be low and high and reporting the det
 
 31/05/22: Using the HC-SR04 will not work according to Ed Stott. We will need to use an ultrasound transducer to detect the acoustic signal emitted from the mineral. 
 
+<img width="810" alt="Screenshot 2022-05-31 at 11 58 52" src="https://user-images.githubusercontent.com/106095203/171158535-10306992-3bf4-40bc-8d6f-033c9e1feec1.png">
+
+Ultrasound transducer information: https://en.wikipedia.org/wiki/Ultrasonic_transducer
+
+Use a transducer; converts ultrasound pulses into an AC signal, which we can analyse using the analogue pins on the adafruit to determine its frequency at 40 kHz. May need to use some amplification to the signal, but testing on ultrasound is not possible without the transducer. 
+
+
 > The acoustic signal transmitted from the rocks are both at 40 kHz, therefore we just need to design a circuit specific for this frequency and detect if it is present from the rock sample. Then use other properties of the rocks (IR and radio) to determine the rock sample being analysed. 
 
 ### Infrared:
