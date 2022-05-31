@@ -61,8 +61,8 @@ As a digital signal, the input will either be low and high and reporting the det
 
 ### Acoustic:
 - [ ] Determine a suitable soln. to detect acoustic signals
-- [ ] Determine a suitable sensor to detect acoustic signals
-- [ ] Place order for the chosen sensor
+- [x] Determine a suitable sensor to detect acoustic signals
+- [x] Place order for the chosen sensor
 - [ ] Approve order for the chosen sensor
 - [ ] Design circuit to demodulate the signal from the chosen sensor
 - [ ] Analyse results from the circuit
