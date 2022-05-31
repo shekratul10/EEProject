@@ -24,3 +24,20 @@ Here are some suggestions to make writing the written report easier
 - **Record all** (circuit) design ideas and changes as this will make the written report easier as you show refinements to your design.
 - **Backup** your written report either by onedrive or outlook!
 - Use the heading formatting in word since this will make it easier to navigate through the whole report and makes it easier for combining the individual reports together.
+
+## Useful information
+Mineral properties:
+
+<img width="623" alt="Screenshot 2022-05-27 at 12 43 34" src="https://user-images.githubusercontent.com/106095203/170692913-9280b7b0-e76c-451f-a7b8-0ea30aa6a381.png">
+Exorock operating switches:
+
+<img width="650" alt="Screenshot 2022-05-29 at 19 43 50" src="https://user-images.githubusercontent.com/106095203/170886613-d42fbb28-ed0c-472e-93cb-3d7952c586f6.png">
+
+## Acoustic sensing
+Resources have been moved here: [Ultrasound](https://github.com/shekratul10/EEProject/tree/main/Sensor/Ultrasound)
+## IR Pulse sensing
+Resources have been moved here: [IR Pulse](https://github.com/shekratul10/EEProject/tree/main/Sensor/IR%20Pulse)
+## Magnetic field sensing
+Resources have been moved here: [Magnetic field](https://github.com/shekratul10/EEProject/tree/main/Sensor/Magnetic%20field)
+## Radio wave sensing
+Resources have been moved here: [Radio Wave](https://github.com/shekratul10/EEProject/tree/main/Sensor/Radio%20Wave)
