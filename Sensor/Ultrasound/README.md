@@ -26,3 +26,12 @@ Use a transducer; converts ultrasound pulses into an AC signal, which we can ana
 - [ ] Feed the output of the envelope detector to an analogue input pin on the arduino/adafruit board
 - [ ] Write some code that can determine the frequency of the analogue signal
 - [ ] Compare the frequency of the signal with some parameters e.g. if the frequency is 40 kHz ± 3 kHz, return true for the detection of the acoustic signal. 
+
+### Proposed circuit
+Here is a proposed circuit to detect the ultrasound signals as well as some reasoning behind the values for the bandpass filter.
+
+![Ultrasound circuit](https://user-images.githubusercontent.com/106095203/171390744-fabba37e-6101-4b58-9f1e-4a07e743e574.png)
+
+![Screenshot 2022-06-01 at 12 08 20](https://user-images.githubusercontent.com/106095203/171390810-e42c462e-b2a3-491c-8f77-db44b10162e3.png)
+
+**UPDATE:** For the high pass filter in the proposed circuit diagram above, a 42 Ω resistor is not available in the lab therefore we use a 43 Ω resistor instead. This will give us a corner frequency of 37 kHz, which should be enough to remove unwanted signals that may be picked up. 
