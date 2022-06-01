@@ -2,7 +2,7 @@
 
 All important information is here:
 
-**IMPORTANT NOTICES AS OF 01/06/22 12:34**
+**IMPORTANT NOTICES AS OF 01/06/22 22:03**
 - A circuit design has been submitted to the ultrasonic sensor section!
 - A circuit to convert sinusoidal signals into square waves can be found here: [sinusoidal to digital conversion](https://github.com/shekratul10/EEProject/blob/main/Sensor/Sinusoidal%20to%20digital%20conversion.md)
 - Code to determine the frequency of an analogue input on the Adafruit will be difficult to implement so it is suggested to use an op-amp comparator circuit and digital pin instead. Then all sensors can use the existing IR pulse code to determine the frequency of the signal, if required. Information here: https://www.electronics-tutorials.ws/opamp/op-amp-comparator.html 
