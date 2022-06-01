@@ -2,8 +2,9 @@
 
 All important information is here:
 
-**IMPORTANT NOTICES AS OF 01/06/22 12:15**
+**IMPORTANT NOTICES AS OF 01/06/22 12:34**
 - A circuit design has been submitted to the ultrasonic sensor section!
+- Code to determine the frequency of an analogue input on the Adafruit will be difficult to implement so it is suggested to use an op-amp comparator circuit and digital pin instead. Then all sensors can use the existing IR pulse code to determine the frequency of the signal, if required. Information here: https://www.electronics-tutorials.ws/opamp/op-amp-comparator.html 
 - Damani could you approve the order for the ultrasound transceivers
 - Upload all sensor analysing code to the correct folder in the sensors folder
 - Avoid using inductors in circuits as their impedances **may** be affected by an external magnetic field
