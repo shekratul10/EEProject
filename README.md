@@ -2,8 +2,8 @@
 
 All important information is here:
 
-**IMPORTANT NOTICES AS OF 31/05/22 22:24**
-- Github changes 
+**IMPORTANT NOTICES AS OF 01/06/22 12:15**
+- A circuit design has been submitted to the ultrasonic sensor section!
 - Damani could you approve the order for the ultrasound transceivers
 - Upload all sensor analysing code to the correct folder in the sensors folder
 - Avoid using inductors in circuits as their impedances **may** be affected by an external magnetic field
@@ -12,7 +12,8 @@ All important information is here:
 - Damani could you bring in the HC-SR04 components for sacrifical testing
 - Be aware that digital pins 5,7 & 10 cannot be used on the Adafruit board
 - Damani could you steal some wheels from the Robotics lab in the EE Building
-- Bank holiday 2-3 June 2022 so you do not need to arrive to labs for these days. Labs resume on Monday 6th June 2022.
+- Bank holiday 2-3 June 2022 so you do not need to arrive to labs for these days. Labs resume on Monday 6th June 2022
+- There was an issue with the ordering website, therefore orders will have to resubmitted (approved orders only)
 
 **Here is a Gantt chart, which shows what section of the project should be complete for a set date so we can meet the project deadline ontime (19 June 2022)**
 
