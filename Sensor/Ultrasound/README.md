@@ -3,7 +3,7 @@
 - [x] Determine a suitable sensor to detect acoustic signals
 - [x] Place order for the chosen sensor
 - [ ] Approve order for the chosen sensor
-- [ ] Design circuit to demodulate the signal from the chosen sensor
+- [x] Design circuit to demodulate the signal from the chosen sensor
 - [ ] Analyse results from the circuit
 - [ ] Upload the results to the web interface/app
 
