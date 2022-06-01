@@ -4,15 +4,14 @@ All important information is here:
 
 **IMPORTANT NOTICES AS OF 01/06/22 12:34**
 - A circuit design has been submitted to the ultrasonic sensor section!
+- A circuit to convert sinusoidal signals into square waves can be found here: 
 - Code to determine the frequency of an analogue input on the Adafruit will be difficult to implement so it is suggested to use an op-amp comparator circuit and digital pin instead. Then all sensors can use the existing IR pulse code to determine the frequency of the signal, if required. Information here: https://www.electronics-tutorials.ws/opamp/op-amp-comparator.html 
 - Damani could you approve the order for the ultrasound transceivers
-- Upload all sensor analysing code to the correct folder in the sensors folder
 - Avoid using inductors in circuits as their impedances **may** be affected by an external magnetic field
 - Make component orders at https://apps.powerapps.com/play/30b4e212-d040-4203-98cc-882acb4edee0?tenantId=2b897507-ee8c-4575-830b-4f8267c3d307 if necessary
 - **We should wear suits or other formal wear to the demo for 24/06/22**
 - Damani could you bring in the HC-SR04 components for sacrifical testing
 - Be aware that digital pins 5,7 & 10 cannot be used on the Adafruit board
-- Damani could you steal some wheels from the Robotics lab in the EE Building
 - Bank holiday 2-3 June 2022 so you do not need to arrive to labs for these days. Labs resume on Monday 6th June 2022
 - There was an issue with the ordering website, therefore orders will have to resubmitted (approved orders only)
 
