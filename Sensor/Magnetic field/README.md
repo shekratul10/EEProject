@@ -22,6 +22,7 @@ We could use a unipolar hall sensor for detecting the general presence of a magn
 The ordered sensors:
 
 Bipolar: https://onecall.farnell.com/texas-instruments/drv5053eaqlpgm/hall-effect-bipolar-to-92-3/dp/3124148
+
 Unipolar: https://onecall.farnell.com/honeywell/ss441r/sensor-hall-effect-unipolar-to/dp/1784735 
 
 Data sheets for each of the ordered sensors can be reviewed by clicking on the links. 
