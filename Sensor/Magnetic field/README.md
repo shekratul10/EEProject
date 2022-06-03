@@ -9,8 +9,9 @@
 - [ ] Upload the results to the web interface/app
 
 **Use of a hall effect sensor may be better instead**
-The circuit required to detect the magntic field is easier to implement when considering the two poles that need to be analysed. Information for reed switching will remain here until we have a better idea of which sensor is better for this purpose. Example circuit: https://circuitdigest.com/electronic-circuits/magnetic-polarity-detector-circuit-using-hall-sensor
+The circuit required to detect the magntic field is easier to implement when considering the two poles that need to be analysed. Information for reed switching will remain here until we have a better idea of which sensor is better for this purpose. Example circuit: https://circuitdigest.com/electronic-circuits/magnetic-polarity-detector-circuit-using-hall-sensor. Here are resources for using the hall effect sensor instead: https://www.electronics-tutorials.ws/electromagnetism/hall-effect.html , https://uk.rs-online.com/web/generalDisplay.html?id=ideas-and-advice/hall-effect-sensors-guide.
 
+**Information for the implementation with the reed switch**
 A reed switch is a switch activated by an external magnetic field - we can use a digital pin on the Adafruit to analyse the result and report true or false depending on if the switch has closed or not. We are required to determine the polarity of the magnetic field produced by the mineral so we will need two reed switches to detect the north and south magnetic poles. We could use two digital pins to analyse the signal from each reed switch. Here is a proposed circuit diagram:
 
 ![Reed switch example circuit](https://user-images.githubusercontent.com/106095203/171034722-02680c6b-d5df-4026-82c3-d38e3c634189.png)
