@@ -19,6 +19,11 @@ We could use a unipolar hall sensor for detecting the general presence of a magn
 
 **I have heard that the pins on the hall effect sensor are rather delicate therefore two of each kind will be ordered.**
 
+The ordered sensors:
+Bipolar: https://onecall.farnell.com/texas-instruments/drv5053eaqlpgm/hall-effect-bipolar-to-92-3/dp/3124148
+Unipolar: https://onecall.farnell.com/honeywell/ss441r/sensor-hall-effect-unipolar-to/dp/1784735 
+
+
 **Information for the implementation with the reed switch**
 A reed switch is a switch activated by an external magnetic field - we can use a digital pin on the Adafruit to analyse the result and report true or false depending on if the switch has closed or not. We are required to determine the polarity of the magnetic field produced by the mineral so we will need two reed switches to detect the north and south magnetic poles. We could use two digital pins to analyse the signal from each reed switch. Here is a proposed circuit diagram:
 
