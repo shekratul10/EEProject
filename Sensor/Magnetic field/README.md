@@ -25,6 +25,7 @@ Bipolar: https://onecall.farnell.com/texas-instruments/drv5053eaqlpgm/hall-effec
 Unipolar: https://onecall.farnell.com/honeywell/ss441r/sensor-hall-effect-unipolar-to/dp/1784735 
 
 Data sheets for each of the ordered sensors can be reviewed by clicking on the links. 
+https://www.ti.com/lit/ds/symlink/drv5053.pdf?HQS=dis-dk-null-digikeymode-dsf-pf-null-wwe&ts=1654186442426 
 
 **Information for the implementation with the reed switch**
 A reed switch is a switch activated by an external magnetic field - we can use a digital pin on the Adafruit to analyse the result and report true or false depending on if the switch has closed or not. We are required to determine the polarity of the magnetic field produced by the mineral so we will need two reed switches to detect the north and south magnetic poles. We could use two digital pins to analyse the signal from each reed switch. Here is a proposed circuit diagram:
