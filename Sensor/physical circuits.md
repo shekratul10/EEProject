@@ -6,3 +6,6 @@ Datasheet of stripboard as well as component:
 
 Datasheet: https://www.farnell.com/datasheets/1998175.pdf (E012)
 Component: https://onecall.farnell.com/kemo-electronic/e012/stripboard-fr2-100x100mm/dp/2503759?st=veroboard
+
+Fuck no farnell charges absurd handling fees, RS components are better:
+https://uk.rs-online.com/web/p/stripboards/2065841
