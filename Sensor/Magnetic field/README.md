@@ -17,7 +17,9 @@ We could use the bipolar HS (DRV5053EAQLPGM) to detect if there is a magnetic fi
 
 We could use the unipolar HS (SS441R) to detect the polarity of the magnetic field. This produces a digital signal and responds in the presence of a South pole (0 for north and 1 for south). Will be used to determine the polarity of the field. Datasheet for reference: https://www.farnell.com/datasheets/2012747.pdf 
 
-![Screenshot 2022-06-03 at 12 11 17](https://user-images.githubusercontent.com/106095203/171843051-7bf609bd-7622-4e34-9223-2bce74ee30bd.png)
+Here is some logic that can be implemented to determine the magnetic field polarity:
+
+<img width="655" alt="Screenshot 2022-06-05 at 18 42 07" src="https://user-images.githubusercontent.com/106095203/172063273-21db719c-5d0a-4177-ab32-7a4530459b2b.png">
 
 **I have heard that the pins on the hall effect sensor are rather delicate therefore two of each kind will be ordered.**
 
