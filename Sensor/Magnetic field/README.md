@@ -13,7 +13,9 @@ The circuit required to detect the magntic field is easier to implement when con
 
 If we intend to provide a solution using a hall sensor, then we are interested in the bipolar hall sensor that will "switch on" in response to one pole and will "switch off" in response to the other pole. The sensor reamins in its present state (either on or off) without a magnetic field, like a flip-flop of magnetism. Idea from: https://www.rfwireless-world.com/Terminology/Unipolar-hall-sensor-vs-Bipolar-hall-sensor-vs-Omnipolar-hall-sensor.html . 
 
-We could use a unipolar hall sensor for detecting the general presence of a magnetic field and then use a bipolar hall sesnsor to determine the direction of the field. Can construct a truth table for this if this improves understanding. This is better than just using two bipolar hall sensor since you need to be able to determine the change in one hall sensor's signal, while the other remains the same meaning you will have two inputs on the same level (they're digital) so unless you are able to code a memory storing feature into the code, using a bipolar and unipolar hall sensor will be more efficient and take up the same number of digital pins as the read switch. 
+We could use the bipolar HS (DRV5053EAQLPGM) to detect if there is a magnetic field via analogue analysis. VQ is the "middle ground" between north and south poles, quoted with a value between 0.9-1.2 V as manufacturing tolerances. To detect a magnetic field we need to determine if the voltage from the bipolar analogue input is outside a certain voltage region e.g. 0.7 - 1.5 V then a magnetic field is detected. Datasheet for reference: https://www.ti.com/lit/ds/symlink/drv5053.pdf?HQS=dis-dk-null-digikeymode-dsf-pf-null-wwe&ts=1654186442426
+
+We could use the unipolar HS (SS441R) to detect the polarity of the magnetic field. This produces a digital signal and responds in the presence of a South pole (0 for north and 1 for south). Will be used to determine the polarity of the field. 
 
 ![Screenshot 2022-06-03 at 12 11 17](https://user-images.githubusercontent.com/106095203/171843051-7bf609bd-7622-4e34-9223-2bce74ee30bd.png)
 
@@ -25,26 +27,8 @@ Bipolar: https://onecall.farnell.com/texas-instruments/drv5053eaqlpgm/hall-effec
 
 Unipolar: https://onecall.farnell.com/honeywell/ss441r/sensor-hall-effect-unipolar-to/dp/1784735 
 
-Data sheets for each of the ordered sensors can be reviewed by clicking on the links. 
-https://www.ti.com/lit/ds/symlink/drv5053.pdf?HQS=dis-dk-null-digikeymode-dsf-pf-null-wwe&ts=1654186442426 
-
 Proposed circuit will HS: 
 
 ![circuit-2](https://user-images.githubusercontent.com/106095203/171848226-dc738b46-7dbd-4f10-a798-017f355e1281.png)
 
-Resistor values have been chosen to ensure the current limits of the components are not reached, allowing for safe operation without component damage. The attached datasheet for bipolar HS shows a linear relationship, therefore it could be possible to analyse the signal from this sensor using analogue pins - if we are short on digital pins (which may be the case). 
-
-Test code for the Unipolar Hall effect sensor has been uploaded, test first and modify some aspects so the result is correct for magnetic field detection. 
-
-
-**Information for the implementation with the reed switch**
-A reed switch is a switch activated by an external magnetic field - we can use a digital pin on the Adafruit to analyse the result and report true or false depending on if the switch has closed or not. We are required to determine the polarity of the magnetic field produced by the mineral so we will need two reed switches to detect the north and south magnetic poles. We could use two digital pins to analyse the signal from each reed switch. Here is a proposed circuit diagram:
-
-![Reed switch example circuit](https://user-images.githubusercontent.com/106095203/171034722-02680c6b-d5df-4026-82c3-d38e3c634189.png)
-
-Although the connected digital pin in the diagram is pin 7 on the Arduino, we could use any digital pin to report the results of the magnetic field circuit.
-
-### Hints for written report
-Here is some information about how a reed switch works: https://uk.rs-online.com/web/generalDisplay.html?id=ideas-and-advice/reed-switches-guide. 
-And here is the data sheet of the reed switch components we have used: https://github.com/shekratul10/EEProject/files/8786346/Reed.switch.datasheet.pdf
-
+Resistor values have been chosen to ensure the current limits of the components are not reached, allowing for safe operation without damaging the components. 
