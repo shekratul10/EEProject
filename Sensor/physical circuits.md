@@ -9,3 +9,5 @@ Component: https://onecall.farnell.com/kemo-electronic/e012/stripboard-fr2-100x1
 
 Fuck no farnell charges absurd handling fees, RS components are better:
 https://uk.rs-online.com/web/p/stripboards/2065841
+
+Written report: [construction of circuits](https://github.com/shekratul10/EEProject/blob/main/Written%20report/Construction%20of%20circuits%20written%20report.docx)
