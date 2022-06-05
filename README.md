@@ -2,8 +2,8 @@
 
 All important information is here:
 
-**IMPORTANT NOTICES AS OF 03/06/22 12:55**
-- **Damani could you approve the orders for components**
+**IMPORTANT NOTICES AS OF 05/06/22 14:14**
+- Physical sensor circuits built on stripboards - reasoning here: https://github.com/shekratul10/EEProject/blob/main/Sensor/physical%20circuits.md
 - Using two hall effect sensors might be better to detect the polarity of the magntic field => A proposed circuit has been uploaded, as well as component suggestions. All updated in the magnetic field section.
 - A circuit design has been submitted to the ultrasonic sensor section!
 - A circuit to convert sinusoidal signals into square waves can be found here: [sinusoidal to digital conversion](https://github.com/shekratul10/EEProject/blob/main/Sensor/Sinusoidal%20to%20digital%20conversion.md)
