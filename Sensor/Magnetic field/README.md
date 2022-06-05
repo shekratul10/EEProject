@@ -34,6 +34,8 @@ Proposed circuit will HS:
 
 Resistor values have been chosen to ensure the current limits of the components are not reached, allowing for safe operation without component damage. The attached datasheet for bipolar HS shows a linear relationship, therefore it could be possible to analyse the signal from this sensor using analogue pins - if we are short on digital pins (which may be the case). 
 
+Test code for the Hall effect sensor has been uploaded, test first and modify some aspects so the result is correct for magnetic field detection. 
+
 
 **Information for the implementation with the reed switch**
 A reed switch is a switch activated by an external magnetic field - we can use a digital pin on the Adafruit to analyse the result and report true or false depending on if the switch has closed or not. We are required to determine the polarity of the magnetic field produced by the mineral so we will need two reed switches to detect the north and south magnetic poles. We could use two digital pins to analyse the signal from each reed switch. Here is a proposed circuit diagram:
