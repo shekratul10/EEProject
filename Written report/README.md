@@ -18,5 +18,7 @@ Here are some suggestions to make writing your written report easier:
 - **Record all** (circuit) design ideas and changes as this will make the written report easier as you show refinements to your design.
 - **Backup** your written report either by onedrive, github or outlook!
 - Use heading formatting in word since this will make it easier to navigate through the whole report and makes it easier for combining the individual reports together
+- 10,000 word limit, type a draft document and then condense it as much as possible. Explanation for code can be done on github, saving some words.
+- Write on word since it is free, using your imperial login
 
 View all reports by downloading them from their respective links and viewing the written reports in word. 
