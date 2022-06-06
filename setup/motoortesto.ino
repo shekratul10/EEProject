@@ -1,158 +1,100 @@
-/*//Test the EEEBug motors by generating two PWM signals
-//The speed of each motor should rise and fall over a period of 2 seconds
-unsigned int i = 0;
-unsigned long  prevMillis = 0;
-unsigned long  interval = 3000;
-const unsigned int increment = 16;
- 
-void setup() {
-  // put your setup code here, to run once:
-  pinMode(6,OUTPUT);
-  pinMode(8,OUTPUT);
-  pinMode(9,OUTPUT);
-  pinMode(11,OUTPUT);
-  pinMode(LED_BUILTIN,OUTPUT);
-  
-}
-
-void loop() {
-    ///forwards
-    digitalWrite(8,HIGH);
-    analogWrite(9, 100);
-    analogWrite(11,100);
-    delay(2000);
-    //turn right
-    digitalWrite(8,HIGH);
-    digitalWrite(6,HIGH);
-    analogWrite(9,100);
-    analogWrite(11,100);
-    delay(2000);
-    //turn left
-    digitalWrite(8,LOW);
-    digitalWrite(6,LOW);
-    analogWrite(9,100);
-    analogWrite(11,100);
-    delay(2000);
-    //reverse
-    digitalWrite(8,LOW);
-    digitalWrite(6,HIGH);
-    analogWrite(9,100);
-    analogWrite(11,100);
-    delay(2000); ***
-    unsigned long currMillis = millis();
- 
-  if(currMillis - prevMillis > interval) {
-    analogWrite(9,100);
-    prevMillis = currMillis;   
-    
-  }
-  
-    
-   
-}***/
-//Test the EEEBug motors by generating two PWM signals
-//The speed of each motor should rise and fall over a period of 2 seconds
-
-unsigned int i=0;
-unsigned long nextTime = 0;
-const unsigned long time1 = 1000;
-const unsigned long time2 = 3000;
-const unsigned int STEP = 16;
+const unsigned long interval = 3000;
+unsigned long startTime = 0;
+unsigned long endTime = 3000;
+unsigned long currTime = millis();
 
 void setup() {
   // put your setup code here, to run once:
-  pinMode(6,OUTPUT);
-  pinMode(8,OUTPUT);
-  pinMode(9,OUTPUT);
-  pinMode(11,OUTPUT);
-  pinMode(LED_BUILTIN,OUTPUT);
-  
+ pinMode(12,OUTPUT);
+ pinMode(13,OUTPUT);
+ pinMode(8,OUTPUT);
+ pinMode(9,OUTPUT);
+ Serial.begin(9600);
+ 
 }
-void forward(){
-  digitalWrite(8,HIGH);
-  digitalWrite(6,LOW);
-  if (millis()>nextTime){ //Is it time to update the output?
-    nextTime += time1;  //Calculate next update time
-    i += STEP;                //Increment output counter
-  
-    if (i&256){        
-      analogWrite(9,i&127); 
-      analogWrite(11,i&127);
-      }
-      
-    else {
-      analogWrite(9,127-(i&127));   
-      analogWrite(11,127-(i&127));
-      } 
-    }
 
-    digitalWrite(LED_BUILTIN,i&0x80); //Flash the LED
+void stull() {
+  while(startTime <= currTime && currTime <= endTime){// 3000ms < t < 6000ms
+    Serial.println("STOP!!");
+    analogWrite(12,0);
+    analogWrite(8,0);
+    currTime = millis();
   }
-void reverse(){
-  digitalWrite(8,LOW);
-  digitalWrite(6,HIGH);
-  if(millis()>nextTime){
-    nextTime += time2;
-    i += STEP;
-    
-    if(i&256){
-     analogWrite(9,i&127); 
-     analogWrite(11,i&127);
-      }
-      
-    else {
-      digitalWrite(8,HIGH);
-      digitalWrite(6,LOW);
-      analogWrite(9,127-(i&127));   
-      analogWrite(11,127-(i&127));
-      } 
-  }
+  startTime += interval;
+  endTime += interval;
+  return;
+
 }
-void right(){
-  digitalWrite(8,LOW);
-  digitalWrite(6,LOW);
-  if(millis()>nextTime){
-    nextTime += time1;
-    i += STEP;
-    
-    if(i&256){
-     analogWrite(9,i&127); 
-     analogWrite(11,i&127);
-      }
-      
-    else {
-      digitalWrite(8,HIGH);
-      digitalWrite(6,HIGH);
-      analogWrite(9,127-(i&127));   
-      analogWrite(11,127-(i&127));
-      } 
+
+void forward() {
+  digitalWrite(13,HIGH);
+  digitalWrite(9,LOW);
+  while(startTime <= currTime && currTime <= endTime){//0ms < t < 3000ms,
+    Serial.println("forwards");
+    analogWrite(12,127);
+    analogWrite(8,127);
+    currTime = millis();
   }
+  startTime += interval;
+  endTime += interval;
+  return;
 }
+
 void left(){
-  digitalWrite(8,HIGH);
-  digitalWrite(6,HIGH);
-  if(millis()>nextTime){
-    nextTime += time2;
-    i += STEP;
-    
-    if(i&256){
-     analogWrite(9,i&127); 
-     analogWrite(11,i&127);
-      }
-      
-    else {
-      digitalWrite(8,LOW);
-      digitalWrite(6,LOW);
-      analogWrite(9,127-(i&127));   
-      analogWrite(11,127-(i&127));
-      } 
+  digitalWrite(13,HIGH);
+  digitalWrite(9,HIGH);
+  while(startTime <= currTime && currTime <= endTime){
+    Serial.println("turning left");
+    analogWrite(12,77);
+    analogWrite(8,77);
+    currTime = millis();
   }
+  startTime += interval;
+  endTime += interval;
+  return;
+}
+
+void right(){
+  digitalWrite(13,LOW);
+  digitalWrite(9,LOW);
+  while(startTime <= currTime && currTime <= endTime){
+    Serial.println("turning right");
+    analogWrite(12,77);
+    analogWrite(8,77);
+    currTime = millis();
+  }
+  startTime += interval;
+  endTime += interval;
+  return;
+}
+
+void reverse(){
+  digitalWrite(13,LOW);
+  digitalWrite(9,HIGH);
+  while(startTime <= currTime && currTime <= endTime){
+    Serial.println("reversing");
+    analogWrite(12,127);
+    analogWrite(8,127);
+    currTime = millis();
+  }
+  startTime += interval;
+  endTime += interval;
+  return;
 }
 
 void loop() {
   // put your main code here, to run repeatedly:
+  Serial.println("entering loop");
+  left();
+  stull();
+  right();
+  stull();
+  forward();
+  stull();
+  reverse();
+  stull(); 
   
   
   
-   
+    
 }
