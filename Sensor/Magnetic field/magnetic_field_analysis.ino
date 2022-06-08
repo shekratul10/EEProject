@@ -8,6 +8,7 @@ void setup() {
    */
    pinMode(4, INPUT);
    // Digital pin used to for unipolar HS (detects the direction of the magnetic field)
+   // Any digital pin can be used for this sensor.
   Serial.begin(9600);
 
 }
@@ -17,8 +18,11 @@ void loop() {
   int D4 = digitalRead(4);
 
   if(!(VA0 > 146 && VA0 < 310)){
+    // if the output voltage of the BHS is outside deadzone, then a magnetic field is detected
     if(D4 == HIGH){
+      // If statements only distinguish the pole direction, not the magnetic field direction (up/down). Refer to Ed's Git for magnet directions. 
       Serial.println("South pole detected!");
+      // if UHS is high, south pole - due to the component chosen to sense direction
     }
     else{
       Serial.println("North pole detected!");
