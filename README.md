@@ -5,23 +5,20 @@ All important information is here:
 **IMPORTANT NOTICES AS OF 05/06/22 14:14**
 - Physical sensor circuits built on stripboards - reasoning here: https://github.com/shekratul10/EEProject/blob/main/Sensor/physical%20circuits.md
 - Using two hall effect sensors might be better to detect the polarity of the magntic field => A proposed circuit has been uploaded, as well as component suggestions. All updated in the magnetic field section.
-- A circuit design has been submitted to the ultrasonic sensor section!
 - A circuit to convert sinusoidal signals into square waves can be found here: [sinusoidal to digital conversion](https://github.com/shekratul10/EEProject/blob/main/Sensor/Sinusoidal%20to%20digital%20conversion.md)
 - Code to determine the frequency of an analogue input on the Adafruit will be difficult to implement so it is suggested to use an op-amp comparator circuit and digital pin instead. Then all sensors can use the existing IR pulse code to determine the frequency of the signal, if required. Information here: https://www.electronics-tutorials.ws/opamp/op-amp-comparator.html 
 - Avoid using inductors in circuits as their impedances **may** be affected by an external magnetic field
 - Make component orders at https://apps.powerapps.com/play/30b4e212-d040-4203-98cc-882acb4edee0?tenantId=2b897507-ee8c-4575-830b-4f8267c3d307 if necessary
 - **We should wear suits or other formal wear to the demo for 24/06/22**
-- Damani could you bring in the HC-SR04 components for sacrifical testing
 - Be aware that digital pins 5,7 & 10 cannot be used on the Adafruit board
-- There was an issue with the ordering website, therefore orders will have to resubmitted (approved orders only)
-- A written report has been submitted, please view it here: [IR Written report](https://github.com/shekratul10/EEProject/blob/main/Written%20report/IR%20sensing%20written%20report.docx)
+- A written report has been submitted, please view it here: [written report](https://github.com/shekratul10/EEProject/blob/main/Written%20report/IR%20sensing%20written%20report.docx)
 
 **Here is a Gantt chart, which shows what section of the project should be complete for a set date so we can meet the project deadline ontime (19 June 2022)**
 
 ![EE Project Gantt Chart](https://user-images.githubusercontent.com/106095203/170874786-cc7f64eb-d050-46ae-aa13-25eecf843db8.png)
 
 The following needs to be **accomplished** to meet our project goals:
-- [ ] Develop a circuit to detect acoustic signals and analyse the frequency
+- [x] Develop a circuit to detect acoustic signals and analyse the frequency
 - [x] Develop a circuit to detect infrared pulses and analyse the pulse frequency
 - [ ] Develop a circuit to detect magnetic field polarity and analyse the direction of the field
 - [ ] Develop a circuit to detect radio waves, detect the carrier frequency, detect the modulating frequency and analyse these frequencies
