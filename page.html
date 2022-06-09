@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title> REEEMOTE </title>
     <link rel="stylesheet" href="style.css">
+    <script src="joy.js"></script>
 </head>
 
 <body>
@@ -15,7 +16,7 @@
     <p>The following section provides information about the sensor status. If the signal is detected it will say True.
         Otherwise it will say false.</p>
     <div class="statuses">
-        <div class="status" >IR - <span id="irState">False</span></div>
+        <div class="status">IR - <span id="irState">False</span></div>
         <div class="status">Radio - <span id="radState">False</span></div>
         <div class="status">Magnetic - <span id="magState">False</span></div>
     </div>
@@ -24,12 +25,28 @@
 
 
     <h3>Motion Controls</h3>
+
+    <div id="joyDiv"></div>
     <p>These are the controls used for motion.</p>
-    <button onclick="forward()">FORWARD</button>
-    <button onclick="stop()">STOP</button>
+
+    <div id="joy1Div" style="width:200px;height:200px;margin:50px"></div>
 </body>
 
 <script>
+    var Joy1 = new JoyStick('joy1Div', {
+        internalLineWidth: 0,
+        externalLineWidth: 4,
+        internalFillColor: '#7fffd4',
+        externalStrokeColor: '#7fffd4',
+        internalStrokeColor:'#7fffd4'
+    }, function (stickData) {
+        joy1IinputPosX.value = stickData.xPosition;
+        joy1InputPosY.value = stickData.yPosition;
+        joy1Direzione.value = stickData.cardinalDirection;
+        joy1X.value = stickData.x;
+        joy1Y.value = stickData.y;
+    });
+
     var xhttp = new XMLHttpRequest();
     var irReq = new XMLHttpRequest();
     var radioReq = new XMLHttpRequest();
@@ -64,6 +81,7 @@
         magReq.send();
         radioReq.open("GET", "http://192.168.0.6/rad");
         radioReq.send();
+
     }
 
     function forward() {

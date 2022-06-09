@@ -6,7 +6,7 @@ h1{
 }
 
 h3{
-    color: aquamarine;
+    color: #7fffd4;
 }
 
 button{
@@ -35,3 +35,6 @@ p{
     color: lightgray;
 }
 
+.control-pad button{
+    height: auto;
+}
