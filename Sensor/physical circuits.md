@@ -10,4 +10,6 @@ Component: https://onecall.farnell.com/kemo-electronic/e012/stripboard-fr2-100x1
 Fuck no farnell charges absurd handling fees, RS components are better:
 https://uk.rs-online.com/web/p/stripboards/2065841
 
+There are several circuits that have been soldered to the stripboards such as the infrared and ultrasound sensing circuits. These circuits work as intended with Vcc, GND and signal wires as actual wire components. The length of the wires can be changed either by cutting them to size or replacing them with wires of appropriate size. The Vcc and GND wires will be soldered to another stripboard that will act as a power distributor board, featuring rails for 3.3 V, 5 V and GND, which will have connections to the breadboard. 
+
 Written report: [construction of circuits](https://github.com/shekratul10/EEProject/blob/main/Written%20report/Construction%20of%20circuits%20written%20report.docx)
