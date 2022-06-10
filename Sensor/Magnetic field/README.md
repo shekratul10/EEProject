@@ -32,3 +32,6 @@ Proposed circuit will HS:
 ![circuit-2](https://user-images.githubusercontent.com/106095203/171848226-dc738b46-7dbd-4f10-a798-017f355e1281.png)
 
 Resistor values have been chosen to ensure the current limits of the components are not reached, allowing for safe operation without damaging the components. 
+
+Useful information:
+> https://www.ti.com/lit/an/slia086a/slia086a.pdf?ts=1654845521890&ref_url=https%253A%252F%252Fwww.google.com%252F
