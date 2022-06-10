@@ -2,6 +2,7 @@ float freq, period;
 int ontime, offtime;
 
 void setup() {
+  // once again any digital pin can be used except for pins 5, 7 & 10 (since they are for the wifi shield functionality
   pinMode(3, INPUT); // IR
   pinMode(4, INPUT); // US
   Serial.begin(9600);
@@ -17,6 +18,7 @@ void loop() {
 // perform calls to sensing functions in a loop, provides very consistent results.
 
 void IR() {
+  // the code for the following functions are the same as their individual .ino files (except for the configured pins)
   ontime = pulseIn(3, HIGH);
   offtime = pulseIn(3, LOW);
   period = offtime + ontime;
