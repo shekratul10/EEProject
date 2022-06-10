@@ -1,11 +1,11 @@
 ## Acoustic:
-- [ ] Determine a suitable soln. to detect acoustic signals
+- [x] Determine a suitable soln. to detect acoustic signals
 - [x] Determine a suitable sensor to detect acoustic signals
 - [x] Place order for the chosen sensor
-- [ ] Approve order for the chosen sensor
+- [x] Approve order for the chosen sensor
 - [x] Design circuit to demodulate the signal from the chosen sensor
-- [ ] Analyse results from the circuit
-- [ ] Upload the results to the web interface/app
+- [x] Analyse results from the circuit
+- [x] Upload the results to the web interface/app
 
 31/05/22: Using the HC-SR04 will not work according to Ed Stott. We will need to use an ultrasound transducer to detect the acoustic signal emitted from the mineral. 
 
