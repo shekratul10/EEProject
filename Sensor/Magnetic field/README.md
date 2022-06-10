@@ -34,4 +34,5 @@ Proposed circuit will HS:
 Resistor values have been chosen to ensure the current limits of the components are not reached, allowing for safe operation without damaging the components. 
 
 Useful information:
-> https://www.ti.com/lit/an/slia086a/slia086a.pdf?ts=1654845521890&ref_url=https%253A%252F%252Fwww.google.com%252F
+- https://www.ti.com/lit/an/slia086a/slia086a.pdf?ts=1654845521890&ref_url=https%253A%252F%252Fwww.google.com%252F
+- you could just use the analogue hall effect sensor
