@@ -2,7 +2,6 @@ float freq, period;
 int ontime, offtime;
 
 void setup() {
-  // put your setup code here, to run once:
   pinMode(3, INPUT); // IR
   pinMode(4, INPUT); // US
   Serial.begin(9600);
@@ -14,6 +13,8 @@ void loop() {
   US();
 
 }
+
+// perform calls to sensing functions in a loop, provides very consistent results.
 
 void IR() {
   ontime = pulseIn(3, HIGH);
