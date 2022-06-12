@@ -1,6 +1,6 @@
-const unsigned long interval = 3000;
+const unsigned long interval = 2000;
 unsigned long startTime = 0;
-unsigned long endTime = 3000;
+unsigned long endTime = 2000;
 unsigned long currTime = millis();
 
 void setup() {
@@ -13,26 +13,24 @@ void setup() {
  
 }
 
-void stull() {
-  while(startTime <= currTime && currTime <= endTime){// 3000ms < t < 6000ms
-    Serial.println("STOP!!");
+void still() {
+  while(startTime <= currTime && currTime <= endTime){
     analogWrite(12,0);
-    analogWrite(8,0);
+    analogWrite(8,0);//analogWrite(pin,255,0)
     currTime = millis();
+    Serial.println("still");
   }
   startTime += interval;
   endTime += interval;
   return;
-
 }
 
 void forward() {
   digitalWrite(13,HIGH);
   digitalWrite(9,LOW);
-  while(startTime <= currTime && currTime <= endTime){//0ms < t < 3000ms,
-    Serial.println("forwards");
-    analogWrite(12,127);
-    analogWrite(8,127);
+  while(startTime <= currTime && currTime <= endTime){
+    analogWrite(12,200);
+    analogWrite(8,200);
     currTime = millis();
   }
   startTime += interval;
@@ -43,11 +41,17 @@ void forward() {
 void left(){
   digitalWrite(13,HIGH);
   digitalWrite(9,HIGH);
-  while(startTime <= currTime && currTime <= endTime){
-    Serial.println("turning left");
-    analogWrite(12,77);
-    analogWrite(8,77);
+  while(startTime <= currTime && currTime <= (endTime-1000)){
+    analogWrite(12,150);
+    analogWrite(8,150);
     currTime = millis();
+    Serial.println("in whileloop");
+  }
+  while(startTime <= currTime && currTime <= endTime){
+    analogWrite(12,0);
+    analogWrite(8,0);
+    currTime = millis();
+    Serial.println("in whileloop2");
   }
   startTime += interval;
   endTime += interval;
@@ -57,12 +61,19 @@ void left(){
 void right(){
   digitalWrite(13,LOW);
   digitalWrite(9,LOW);
-  while(startTime <= currTime && currTime <= endTime){
-    Serial.println("turning right");
-    analogWrite(12,77);
-    analogWrite(8,77);
+  while(startTime <= currTime && currTime <= (endTime-1000)){
+    analogWrite(12,150);
+    analogWrite(8,150);
     currTime = millis();
+    Serial.println("in whileloop");
   }
+  while(startTime <= currTime && currTime <= endTime){
+    analogWrite(12,0);
+    analogWrite(8,0);
+    currTime = millis();
+    Serial.println("in whileloop2");
+  }
+  
   startTime += interval;
   endTime += interval;
   return;
@@ -73,28 +84,104 @@ void reverse(){
   digitalWrite(9,HIGH);
   while(startTime <= currTime && currTime <= endTime){
     Serial.println("reversing");
-    analogWrite(12,127);
-    analogWrite(8,127);
+    analogWrite(12,200);
+    analogWrite(8,200);
     currTime = millis();
   }
   startTime += interval;
   endTime += interval;
   return;
 }
+void fwdright(){
+  digitalWrite(13,LOW);
+  digitalWrite(9,LOW);
+  while(startTime <= currTime && currTime <= (endTime - 1500)){
+    analogWrite(12,150);
+    analogWrite(8,150);
+    currTime = millis();
+    }
+  digitalWrite(13,HIGH);
+  digitalWrite(9,LOW);
+  while(startTime <= currTime && currTime <= endTime){
+    analogWrite(12,200);
+    analogWrite(8,200);
+    currTime = millis();
+    }
+  startTime += interval;
+  endTime += interval;
+  return;
+}
+void fwdleft(){
+  digitalWrite(13,HIGH);
+  digitalWrite(9,HIGH);
+  while(startTime <= currTime && currTime <= (endTime - 1500)){
+    analogWrite(12,150);
+    analogWrite(8,150);
+    currTime = millis();
+    }
+  digitalWrite(13,HIGH);
+  digitalWrite(9,LOW);
+  while(startTime <= currTime && currTime <= endTime){
+    analogWrite(12,200);
+    analogWrite(8,200);
+    currTime = millis();
+    }
+  startTime += interval;
+  endTime += interval;
+  return;
+}
+void revright(){
+  digitalWrite(13,HIGH);
+  digitalWrite(9,HIGH);
+  while(startTime <= currTime && currTime <= (endTime - 1500)){
+    analogWrite(12,150);
+    analogWrite(8,150);
+    currTime = millis();
+    }
+  digitalWrite(13,LOW);
+  digitalWrite(9,HIGH);
+  while(startTime <= currTime && currTime <= endTime){
+    analogWrite(12,200);
+    analogWrite(8,200);
+    currTime = millis();
+    }
+  startTime += interval;
+  endTime += interval;
+  return;
+}
+void revleft(){
+  digitalWrite(13,LOW);
+  digitalWrite(9,LOW);
+  while(startTime <= currTime && currTime <= (endTime - 1500)){
+    analogWrite(12,150);
+    analogWrite(8,150);
+    currTime = millis();
+    }
+  digitalWrite(13,LOW);
+  digitalWrite(9,HIGH);
+  while(startTime <= currTime && currTime <= endTime){
+    analogWrite(12,200);
+    analogWrite(8,200);
+    currTime = millis();
+    }
+  startTime += interval;
+  endTime += interval;
+  return;
+}
+
 
 void loop() {
   // put your main code here, to run repeatedly:
   Serial.println("entering loop");
-  left();
-  stull();
-  right();
-  stull();
   forward();
-  stull();
   reverse();
-  stull(); 
-  
-  
+  left();
+  right();
+  fwdright();
+  fwdleft();
+  revright();
+  revleft();
+  still();
   
     
 }
