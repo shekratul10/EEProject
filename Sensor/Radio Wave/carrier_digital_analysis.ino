@@ -18,12 +18,10 @@ void CRadio(){
   period = offtime + ontime;
   freq = 1000000/period;
   if(ontime != 0){
-    if(freq > 58000 && freq < 65000){
-      // these are temporary values
+    if(freq > 55555.55 && freq < 58823.53){
       Serial.println("Radio carrier, 61 kHz");
     }
-    else if(freq > 85000 && freq < 94000){
-      // these are also temporary values
+    else if(freq > 83333.34 && freq < 90909.1){
       Serial.println("Radio carrier, 89 kHz");
     }
   }
