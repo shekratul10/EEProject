@@ -40,18 +40,23 @@ void IR() {
 }
 
 void US(){
-  ontime = pulseIn(4, HIGH);
+    ontime = pulseIn(4, HIGH);
   offtime = pulseIn(4, LOW);
   period = offtime + ontime;
   freq = 1000000/period;
   if(freq > 37037.03 && 38461.54) {
-    // Serial.println("Acoustic signal, 40 kHz");
-    // Acoustic signal detected
+    uscount++;
   }
   else {
-    // no acoustic signal detected - make the equivalent for web interface
+    uscount = 0;
   }
-}
+  if(uscount == 10) {
+    Serial.println("Acoustic signal detected!");
+    uscount = 0;
+  }
+  else {
+    // no acoustic signal detected
+  }
   
 void CRadio(){
   // this function mostly works without filters, but they may be necessary since these signals have very high frequencies. 
@@ -67,5 +72,7 @@ void CRadio(){
       Serial.println("Radio carrier, 89 kHz");
     }
   }
+  else {
+    // no carrier signal detected
 }
   
