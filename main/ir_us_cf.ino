@@ -57,7 +57,7 @@ void US(){
   else {
     // no acoustic signal detected
   }
-  
+}
 void CRadio(){
   // this function mostly works without filters, but they may be necessary since these signals have very high frequencies. 
   ontime = pulseIn(2, HIGH);

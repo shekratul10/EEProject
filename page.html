@@ -7,12 +7,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title> REEEMOTE </title>
     <link rel="stylesheet" href="style.css">
-    <link rel="manifest" href="manifest.json">
-    <script src="joy.js"></script>
+    <script src="jquery-3.6.0.min.js"></script>
+
 </head>
 
 <body>
-    <h1 , font="arial">REEEMOTE</h1>
+    
     <div class="statuses">
         <div class="status">
             <div class="title">🔦 INFRARED</div>
@@ -27,7 +27,7 @@
        a 40 40 0 0 1 0 -80" />
                 <text x="50" y="40" text-anchor="middle" dy="7" font-size="8" font-weight="600">Frequency</text>
                 <text x="50" y="55" text-anchor="middle" dy="7" font-size="15" font-weight="600" id="irState"
-                    fill="#40e0d0">20Hz</text>
+                    fill="#40e0d0">None</text>
             </svg>
         </div>
         <div class="status">
@@ -42,11 +42,11 @@
            a 40 40 0 0 1 0 -80" />
                 <text x="50" y="40" text-anchor="middle" dy="7" font-size="8" font-weight="600">Frequency</text>
                 <text x="50" y="55" text-anchor="middle" dy="7" font-size="15" id="radSate" font-weight="600"
-                    fill="#E31C79">68Hz</text>
+                    fill="#E31C79">None</text>
             </svg>
             <div class="info-col">
                 <div class="carrier">Carrier</div>
-                <div class="num">100 Hz</div>
+                <div class="num">None</div>
             </div>
 
 
@@ -57,7 +57,7 @@
             <div class="info-col-sig">
                 <div class="centered">
                     <div class="info-title">🧲 MAGNETIC</div>
-                    <div class="info-num" id="magState">North</div>
+                    <div class="info-num" id="magState">None</div>
                     <div class="info-units">🧭 Polarity</div>
                 </div>
             </div>
@@ -65,7 +65,7 @@
             <div class="info-col-sig">
                 <div class="centered">
                     <div class="info-title">🔊 ULTRASONIC</div>
-                    <div class="info-num" id="sonState">None</div>
+                    <div class="info-num" id="usState">None</div>
                     <div class="info-units">🔉 Decibles</div>
                 </div>
 
@@ -77,85 +77,91 @@
         </div>
     </div>
     <div class="controls">
-        <div class="status scan-bar">
-            <div class="title">SCAN</div>
-            <button onclick="update()">Update</button>
-        </div>
+        <div class="status motion-bar">
+            <div class="range-slider">
+                <input id="left-slider" class="input-range" orient="vertical" type="range" step="5" value="0" min="-255" max="255" >
+                
+            </div>
+            <!-- <div id="joy1Div" style="width:65%;height:65%;margin:1rem"></div> -->
+        </div>  
+        
         <div class="status data-bar">
             <div class="title">📈 DATA</div>
             <hr>
             <div class="data-cols">
                 <div class="info-col">
                     <div class="info-title">Netherite</div>
-                    <div class="info-num">100</div>
-                    <div class="info-units">🤔 Certainty</div>
+                    <div class="info-num">0</div>
+                    <div class="info-units">%</div>
                 </div>
                 <div class="info-col">
-                    <div class="info-title">Netherite</div>
-                    <div class="info-num">100</div>
-                    <div class="info-units">🧭 Polarity</div>
+                    <div class="info-title">Thiotimoline</div>
+                    <div class="info-num">0</div>
+                    <div class="info-units">%</div>
                 </div>
                 <div class="info-col">
-                    <div class="info-title">Netherite</div>
-                    <div class="info-num">100</div>
-                    <div class="info-units">🧭 Polarity</div>
+                    <div class="info-title">Xirang</div>
+                    <div class="info-num">0</div>
+                    <div class="info-units">%</div>
                 </div>
                 <div class="info-col">
-                    <div class="info-title">Netherite</div>
-                    <div class="info-num">100</div>
-                    <div class="info-units">🧭 Polarity</div>
+                    <div class="info-title">Adamantine</div>
+                    <div class="info-num">0</div>
+                    <div class="info-units">%</div>
                 </div>
                 <div class="info-col">
-                    <div class="info-title">Netherite</div>
-                    <div class="info-num">100</div>
-                    <div class="info-units">🧭 Polarity</div>
+                    <div class="info-title">Gaborium</div>
+                    <div class="info-num">0</div>
+                    <div class="info-units">%</div>
                 </div>
                 <div class="info-col">
-                    <div class="info-title">Netherite</div>
-                    <div class="info-num">100</div>
-                    <div class="info-units">🧭 Polarity</div>
+                    <div class="info-title">Lathwaite</div>
+                    <div class="info-num">0</div>
+                    <div class="info-units">%</div>
                 </div>
 
             </div>
 
         </div>
         <div class="status motion-bar">
-            <div class="title"> MOTION</div>
-           
+            <div class="range-slider">
+                <input id="right-slider" class="input-range" orient="vertical" type="range" step="5" value="0" min="-255" max="255" >
+                
+            </div>
             <!-- <div id="joy1Div" style="width:65%;height:65%;margin:1rem"></div> -->
-        </div>
+        </div>  
     </div>
-    <br>
-    <p>Data Log:</p>
-    <p>Prediction 1: None</p>
-    <p>Prediction 2: Cocnesium</p>
-
-
+    <div class="status scan-bar">
+        <div class="title button">SCAN</div>
+        <button onclick="update()">UPDATE</button>
+        <div class="title button">SECRET</div>
+        <!-- Rounded switch -->
+        <label class="switch">
+            <input type="checkbox">
+            <span class="slider round"></span>
+        </label>
+    </div>
 </body>
 
 <script>
-    var Joy1 = new JoyStick('joy1Div', {
-        internalLineWidth: 0,
-        externalLineWidth: 4,
-        internalFillColor: '#1a1a1a',
-        externalStrokeColor: '#1a1a1a',
-        internalStrokeColor: '#1a1a1a'
-    }, function (stickData) {
-        joy1IinputPosX.value = stickData.xPosition;
-        joy1InputPosY.value = stickData.yPosition;
-        joy1Direzione.value = stickData.cardinalDirection;
-        joy1X.value = stickData.x;
-        joy1Y.value = stickData.y;
-    });
+    ////ip for eerover
+    // var ip="192.168.0.6";
+    //// ip for damanis hotspot
+    const ip = "192.168.43.6"
+
 
     var xhttp = new XMLHttpRequest();
     var irReq = new XMLHttpRequest();
     var radioReq = new XMLHttpRequest();
     var magReq = new XMLHttpRequest();
+    var usReq = new XMLHttpRequest();
+    
     var ir;
     var mag;
     var radio;
     var pred = "noting";
+    var leftSlider = $('#left-slider');
+    var rightSlider = $('#right-slider');
     irReq.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             document.getElementById("irState").innerHTML = this.responseText;
@@ -174,26 +180,33 @@
             console.log(this.responseText);
         }
     };
+    usReq.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            document.getElementById("usState").innerHTML = this.responseText;
+            console.log(this.responseText);
+        }
+    };
 
+
+    
     function update() {
-        irReq.open("GET", "http://192.168.0.6/ir");
+        irReq.open("GET", "http://" + ip + "/ir");
         irReq.send();
-        magReq.open("GET", "http://192.168.0.6/mag");
-        magReq.send();
-        radioReq.open("GET", "http://192.168.0.6/rad");
-        radioReq.send();
+        usReq.open("GET", "http://" + ip + "/us");
+        usReq.send();
+        //magReq.open("GET", "http://"+ip+"/mag");
+        //magReq.send();
+        //radioReq.open("GET", "http://"+ip+"/rad");
+        //radioReq.send();
+    };
+    
 
-    }
-
-    function forward() {
-        xhttp.open("GET", "http://192.168.0.6/fwd");
-        xhttp.send();
-    }
-
-    function stop() {
-        xhttp.open("GET", "http://192.168.0.6/static");
-        xhttp.send();
-    }
+    leftSlider.on('input', function () {
+        console.log("left:"+this.value)
+    });
+    rightSlider.on('input', function () {
+        console.log("right:"+this.value)
+    });
 </script>
 
 </html>
