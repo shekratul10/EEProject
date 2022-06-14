@@ -2,7 +2,10 @@
 #define USE_WIFI_NINA         false
 #define USE_WIFI101           true
 #include <WiFiWebServer.h>
-const int leftwheel = 12;
+int l_en = 12;
+int l_dir = 13;
+int r_en = 8;
+int r_dir = 9; //for motor controls
 const int irRead = 3;
 //10 and 11 are broken it seems
 const int magRead = 9;
@@ -119,15 +122,50 @@ void handleNotFound()
   server.send(404, F("text/plain"), message);
 }
 
+void motion(int l_in, int r_in) {
+  if(l_in == 0){
+    analogWrite(l_en, 0);
+  }
+  if(r_in == 0){
+    analogWrite(r_en, 0);
+  }
+  else if(l_in > 0 && r_in > 0){ //forward
+    digitalWrite(l_dir, HIGH);
+    digitalWrite(r_dir, LOW);
+    analogWrite(l_en, l_in);
+    analogWrite(r_en, r_in);
+  }
+  else if(l_in < 0 && r_in > 0){ //left
+    digitalWrite(l_dir, LOW);
+    digitalWrite(r_dir, LOW);
+    analogWrite(l_en, abs(l_in));
+    analogWrite(r_en, r_in);
+  }
+  else if(l_in > 0 && r_in < 0){ //left
+    digitalWrite(l_dir, HIGH);
+    digitalWrite(r_dir, HIGH);
+    analogWrite(l_en, l_in);
+    analogWrite(r_en, abs(r_in));
+  }
+  else if(l_in < 0 && r_in < 0){ //left
+    digitalWrite(l_dir, LOW);
+    digitalWrite(r_dir, HIGH);
+    analogWrite(l_en, abs(l_in));
+    analogWrite(r_en, abs(r_in));
+  }
+}
+
 void setup()
 {
-  
-  pinMode(leftwheel, OUTPUT);
   pinMode(LED_BUILTIN, OUTPUT);
   pinMode(magRead, INPUT);
   pinMode(radRead, INPUT);
   pinMode(irRead, INPUT);
   Serial.begin(9600);
+  pinMode(l_en,OUTPUT);
+  pinMode(l_dir,OUTPUT);
+  pinMode(r_en,OUTPUT);
+  pinMode(r_dir,OUTPUT);
 
   //Wait 10s for the serial connection before proceeding
   //This ensures you can see messages from startup() on the monitor
