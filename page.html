@@ -12,7 +12,7 @@
 </head>
 
 <body>
-    
+
     <div class="statuses">
         <div class="status">
             <div class="title">🔦 INFRARED</div>
@@ -79,12 +79,13 @@
     <div class="controls">
         <div class="status motion-bar">
             <div class="range-slider">
-                <input id="left-slider" class="input-range" orient="vertical" type="range" step="5" value="0" min="-255" max="255" >
-                
+                <input id="left-slider" class="input-range" orient="vertical" type="range" step="5" value="0" min="-255"
+                    max="255">
+
             </div>
             <!-- <div id="joy1Div" style="width:65%;height:65%;margin:1rem"></div> -->
-        </div>  
-        
+        </div>
+
         <div class="status data-bar">
             <div class="title">📈 DATA</div>
             <hr>
@@ -125,11 +126,11 @@
         </div>
         <div class="status motion-bar">
             <div class="range-slider">
-                <input id="right-slider" class="input-range" orient="vertical" type="range" step="5" value="0" min="-255" max="255" >
-                
+                <input id="right-slider" class="input-range" onmouseup="resetRight();" ontouchend="resetRight();" orient="vertical" type="range" step="5" value="0" min="-255" max="255">
+
             </div>
             <!-- <div id="joy1Div" style="width:65%;height:65%;margin:1rem"></div> -->
-        </div>  
+        </div>
     </div>
     <div class="status scan-bar">
         <div class="title button">SCAN</div>
@@ -148,14 +149,13 @@
     // var ip="192.168.0.6";
     //// ip for damanis hotspot
     const ip = "192.168.43.6"
-
+    
 
     var xhttp = new XMLHttpRequest();
     var irReq = new XMLHttpRequest();
     var radioReq = new XMLHttpRequest();
     var magReq = new XMLHttpRequest();
     var usReq = new XMLHttpRequest();
-    
     var ir;
     var mag;
     var radio;
@@ -188,7 +188,7 @@
     };
 
 
-    
+
     function update() {
         irReq.open("GET", "http://" + ip + "/ir");
         irReq.send();
@@ -199,13 +199,20 @@
         //radioReq.open("GET", "http://"+ip+"/rad");
         //radioReq.send();
     };
+
+
+    function resetRight(){
+      
+        document.getElementById("right-slider").value = 0;
     
+    };
+
 
     leftSlider.on('input', function () {
-        console.log("left:"+this.value)
+        console.log("left:" + this.value)
     });
     rightSlider.on('input', function () {
-        console.log("right:"+this.value)
+        console.log("right:" + this.value)
     });
 </script>
 
