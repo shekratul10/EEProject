@@ -1,5 +1,5 @@
 
-#define USE_WIFI_NINA         false
+#define USE_WIFI_NINA     false    
 #define USE_WIFI101           true
 #include <WiFiWebServer.h>
 int l_en = 12;
@@ -8,7 +8,7 @@ int r_en = 8;
 int r_dir = 9; //for motor controls
 const int irRead = 3;
 //10 and 11 are broken it seems
-const int magRead = 9;
+const int magRead = 1;
 const int radRead = 2;
 const int usRead = 4;
 const char ssid[] = "HUAWEI nova 5T";
@@ -37,7 +37,7 @@ void irUpdate(){
   offtime = pulseIn(3, LOW);
   period = offtime + ontime;
   freq = 1000000/period;
-  if(offctime != 0) {
+  if(offtime != 0) {
     server.sendHeader("Access-Control-Allow-Origin", "*");
     server.send(200, F("text/plain"), (String(freq)+" Hz"));
 //    if(freq > 340.91 && freq < 366.78) {
@@ -79,7 +79,7 @@ void usUpdate(){
   offtime = pulseIn(4, LOW);
   period = offtime + ontime;
   freq = 1000000/period;
-  if(freq<100000000000000000){
+  if(freq<10000000000){
     server.sendHeader("Access-Control-Allow-Origin", "*");
     server.send(200, F("text/plain"), (String(freq)+" Hz"));}
 //  if(freq > 37037.03 && 38461.54) {
@@ -122,37 +122,27 @@ void handleNotFound()
   server.send(404, F("text/plain"), message);
 }
 
-void motion(int l_in, int r_in) {
-  if(l_in == 0){
-    analogWrite(l_en, 0);
-  }
-  if(r_in == 0){
-    analogWrite(r_en, 0);
-  }
-  else if(l_in > 0 && r_in > 0){ //forward
+void motionL(int l_in) {
+  if(l_in > 0){ //forward
     digitalWrite(l_dir, HIGH);
-    digitalWrite(r_dir, LOW);
-    analogWrite(l_en, l_in);
-    analogWrite(r_en, r_in);
   }
-  else if(l_in < 0 && r_in > 0){ //left
+  else if(l_in < 0){ //left
     digitalWrite(l_dir, LOW);
+  }
+  analogWrite(l_en, abs(l_in));
+
+  Serial.println("L:"+String(l_in));
+}
+void motionR(int r_in){
+  if(r_in > 0){ 
     digitalWrite(r_dir, LOW);
-    analogWrite(l_en, abs(l_in));
-    analogWrite(r_en, r_in);
   }
-  else if(l_in > 0 && r_in < 0){ //left
-    digitalWrite(l_dir, HIGH);
+  else if(r_in < 0){ 
     digitalWrite(r_dir, HIGH);
-    analogWrite(l_en, l_in);
-    analogWrite(r_en, abs(r_in));
   }
-  else if(l_in < 0 && r_in < 0){ //left
-    digitalWrite(l_dir, LOW);
-    digitalWrite(r_dir, HIGH);
-    analogWrite(l_en, abs(l_in));
-    analogWrite(r_en, abs(r_in));
-  }
+ 
+  analogWrite(r_en, abs(r_in));
+  Serial.println("R:"+String(r_in));
 }
 
 void setup()
@@ -204,6 +194,7 @@ void setup()
   server.on(F("/mag"), magUpdate);
   server.on(F("/us"), usUpdate);
 
+ 
   server.onNotFound(handleNotFound);
   
   server.begin();
@@ -215,5 +206,4 @@ void setup()
 void loop()
 {
   server.handleClient();
- 
 }

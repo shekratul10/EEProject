@@ -79,7 +79,7 @@
     <div class="controls">
         <div class="status motion-bar">
             <div class="range-slider">
-                <input id="left-slider" class="input-range" orient="vertical" type="range" step="5" value="0" min="-255"
+                <input id="left-slider"  onmouseup="resetLeft();" ontouchend="resetLeft();" class="input-range" orient="vertical" type="range" step="5" value="0" min="-255"
                     max="255">
 
             </div>
@@ -151,7 +151,7 @@
     const ip = "192.168.43.6"
     
 
-    var xhttp = new XMLHttpRequest();
+    var motionReq = new XMLHttpRequest();
     var irReq = new XMLHttpRequest();
     var radioReq = new XMLHttpRequest();
     var magReq = new XMLHttpRequest();
@@ -207,13 +207,27 @@
     
     };
 
+    function resetLeft(){
+      
+        document.getElementById("left-slider").value = 0;
+    
+    };
 
     leftSlider.on('input', function () {
+        motionReq.open("GET", "http://" + ip + "/motion?left="+leftSlider.value , true);
         console.log("left:" + this.value)
     });
     rightSlider.on('input', function () {
+        motionReq.open("GET", "http://" + ip + "/motion?right="+rightSlider.value,true);
         console.log("right:" + this.value)
     });
+    motionReq.onreadystatechange = function()
+    {
+        if(motionReq.readyState == 4 && motionReq.status == 200) {
+            alert(motionReq.responseText);
+        }
+    }
+
 </script>
 
 </html>
