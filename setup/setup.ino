@@ -1,8 +1,9 @@
 
-#define USE_WIFI_NINA     false    
+#define USE_WIFI_NINA false    
 #define USE_WIFI101           true
 #include <WiFiWebServer.h>
 int l_en = 12;
+
 int l_dir = 13;
 int r_en = 8;
 int r_dir = 9; //for motor controls
@@ -22,7 +23,7 @@ int ontime, offtime;
 //Webpage to return when root is requested
 const char webpage[] = 
 R"=====(<html><head><style>
-.btn {background-color: inherit;padding: 14px 28px;font-size: 16px;}
+.btn {background-webcolor: inherit;padding: 14px 28px;font-size: 16px;}
 .btn:hover {background: #eee;}
 .h1:{color:#1a1a1a;}
 </style></head>
@@ -79,25 +80,12 @@ void usUpdate(){
   offtime = pulseIn(4, LOW);
   period = offtime + ontime;
   freq = 1000000/period;
-  if(freq<10000000000){
-    server.sendHeader("Access-Control-Allow-Origin", "*");
-    server.send(200, F("text/plain"), (String(freq)+" Hz"));}
-//  if(freq > 37037.03 && 38461.54) {
-//    uscount++;
-//  }
-//  else {
-//    uscount = 0;
-//  }
-//  if(uscount == 10) {
-//    server.sendHeader("Access-Control-Allow-Origin", "*");
-//    server.send(200, F("text/plain"), F("Detected"));
-//    uscount = 0;
-//  }
+  if(freq > 38461.54 && freq < 45454.55) {server.sendHeader("Access-Control-Allow-Origin", "*");
+    server.send(200, F(`           "text/plain"), (String(freq)+" Hz"));}
   else {
     server.sendHeader("Access-Control-Allow-Origin", "*");
     server.send(200, F("text/plain"), F("None"));
   }
-}
 void handleRoot()
 {
   server.send(200, F("text/html"), webpage);
@@ -122,27 +110,47 @@ void handleNotFound()
   server.send(404, F("text/plain"), message);
 }
 
-void motionL(int l_in) {
+void motion(float l_in, float r_in) {
+ 
   if(l_in > 0){ //forward
     digitalWrite(l_dir, HIGH);
   }
   else if(l_in < 0){ //left
     digitalWrite(l_dir, LOW);
   }
-  analogWrite(l_en, abs(l_in));
-
-  Serial.println("L:"+String(l_in));
-}
-void motionR(int r_in){
   if(r_in > 0){ 
-    digitalWrite(r_dir, LOW);
+    digitalWrite(r_dir, HIGH);
+    
+    
   }
   else if(r_in < 0){ 
-    digitalWrite(r_dir, HIGH);
+    digitalWrite(r_dir, LOW);
   }
  
+  analogWrite(l_en, abs(l_in));
   analogWrite(r_en, abs(r_in));
-  Serial.println("R:"+String(r_in));
+  Serial.println(l_in);
+  Serial.println(r_in);
+ 
+  
+  
+}
+void handleMotion(){
+  
+  
+  if(server.arg("left")&& server.arg("right")){
+    int right=(server.arg("right")).toInt();
+    int left=(server.arg("left")).toInt();
+     
+     server.sendHeader("Access-Control-Allow-Origin", "*");
+     motion(left,right);
+     server.send(200, F("text/plain"), F("Motor Control Engaged"));
+     Serial.println("Args Present");
+  }
+  else{
+     server.send(404, F("text/plain"), F("Motor Control Error"));
+     Serial.println("Arg Error");
+  }
 }
 
 void setup()
@@ -187,19 +195,19 @@ void setup()
     delay(500);
     Serial.print('.');
   }
-
+  
   //Register the callbacks to respond to HTTP requests
   server.on(F("/"), handleRoot);
   server.on(F("/ir"), irUpdate);
   server.on(F("/mag"), magUpdate);
   server.on(F("/us"), usUpdate);
-
- 
+  server.on(F("/motion"),handleMotion);
   server.onNotFound(handleNotFound);
   
   server.begin();
   Serial.print(F("HTTP server started @ "));
   Serial.println(static_cast<IPAddress>(WiFi.localIP()));
+  
 }
 
 //Call the server polling function in the main loop
