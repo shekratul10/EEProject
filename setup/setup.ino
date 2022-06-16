@@ -3,19 +3,19 @@
 #define USE_WIFI101           true
 #include <WiFiWebServer.h>
 int l_en = 12;
-
 int l_dir = 13;
 int r_en = 8;
 int r_dir = 9; //for motor controls
-const int irRead = 3;
+const int irRead = 1;
 //10 and 11 are broken it seems
-const int magRead = 1;
+const int magRead = 0;
 const int radRead = 2;
 const int usRead = 4;
 const char ssid[] = "HUAWEI nova 5T";
 const char pass[] = "password";
 int uscount=0;
 const int groupNumber = 5; // Set your group number to make the IP address constant - only do this on the EEERover network
+
 
 
 float freq, period;
@@ -38,7 +38,7 @@ void irUpdate(){
   offtime = pulseIn(3, LOW);
   period = offtime + ontime;
   freq = 1000000/period;
-  if(offtime != 0) {
+  if(ontime != 0) {
     server.sendHeader("Access-Control-Allow-Origin", "*");
     server.send(200, F("text/plain"), (String(freq)+" Hz"));
 //    if(freq > 340.91 && freq < 366.78) {
@@ -74,18 +74,22 @@ void magUpdate(){
   }
 }
 
+
 void usUpdate(){
   
   ontime = pulseIn(4, HIGH);
   offtime = pulseIn(4, LOW);
   period = offtime + ontime;
   freq = 1000000/period;
-  if(freq > 38461.54 && freq < 45454.55) {server.sendHeader("Access-Control-Allow-Origin", "*");
-    server.send(200, F(`           "text/plain"), (String(freq)+" Hz"));}
+  if(ontime != 0) {
+    server.sendHeader("Access-Control-Allow-Origin", "*");
+    server.send(200, F("text/plain"), (String(freq)+" Hz"));
+    }
   else {
     server.sendHeader("Access-Control-Allow-Origin", "*");
-    server.send(200, F("text/plain"), F("None"));
-  }
+   server.send(200, F("text/plain"), F("None"));
+ }
+}
 void handleRoot()
 {
   server.send(200, F("text/html"), webpage);
@@ -136,8 +140,6 @@ void motion(float l_in, float r_in) {
   
 }
 void handleMotion(){
-  
-  
   if(server.arg("left")&& server.arg("right")){
     int right=(server.arg("right")).toInt();
     int left=(server.arg("left")).toInt();

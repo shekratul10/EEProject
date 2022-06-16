@@ -14,6 +14,7 @@
 </head>
 
 <body>
+    <h1>REEEMOTE</h1>
 
     <div class="statuses">
         <div class="status">
@@ -94,19 +95,21 @@
             <hr>
             <div class="data-cols">
                 <div class="info-col">
+                    <div class="info-title">Left</div>
+                    <div class="info-num" id="left-speed">0</div>
+                    <div class="info-units" >🚗RPM</div>
+                </div>
+                <div class="info-col">
                     <div class="info-title">Prediction</div>
                     <div class="info-num">🪨</div>
-                    <div class="info-units">Netherite</div>
+                    <div class="info-units" id="prediction">Netherite</div>
+         
+           
                 </div>
                 <div class="info-col">
-                    <div class="info-title">Prediction</div>
-                    <div class="info-num">0</div>
-                    <div class="info-units">%</div>
-                </div>
-                <div class="info-col">
-                    <div class="info-title">Prediction</div>
-                    <div class="info-num">0</div>
-                    <div class="info-units">%</div>
+                    <div class="info-title">Right</div>
+                    <div class="info-num"  id="right-speed">0</div>
+                    <div class="info-units">🚗PRM</div>
                 </div>
             </div>
 
@@ -121,8 +124,7 @@
             <!-- <div id="joy1Div" style="width:65%;height:65%;margin:1rem"></div> -->
         </div>
     </div>
-    
-    <div class="statuses">
+
         <div class="status scan-bar">
             <div class="title button">SCAN</div>
             <button onclick="update()">UPDATE</button>
@@ -133,10 +135,7 @@
                 <span class="slider round"></span>
             </label>
         </div>
-        <div class="status chart-bar"><canvas id="myChart" style="width:100%;height:100%;"></canvas></div>
-      
-        <div class="status chart-bar"> <div class="info-title">IR</div><div class="info-units">Raw</div><canvas id="chart" width="800" height="400"></canvas></div>
-    </div>
+
 
 </body>
 
@@ -184,90 +183,33 @@
     };
     motionReq.onreadystatechange = function () {
         if (motionReq.readyState == 4 && motionReq.status == 200) {
-            document.getElementById("motorState").innerHTML = this.responseText;
+           
         }
     }
 
+    function predict(){
+
+    }
 
     function update() {
         irReq.open("GET", "http://" + ip + "/ir");
         irReq.send();
         usReq.open("GET", "http://" + ip + "/us");
         usReq.send();
-        //magReq.open("GET", "http://"+ip+"/mag");
-        //magReq.send();
+        magReq.open("GET", "http://"+ip+"/mag");
+        magReq.send();
         //radioReq.open("GET", "http://"+ip+"/rad");
         //radioReq.send();
+        predict();
     };
-    var xValues = ["Netherite", "Adamantine", "Lathwaite", "Gaborium", "Xirang", "Thiotimoline"];
-    var yValues = [2, 1, 3, 0, 1];
-    var barColors = ["blue", "blue", "blue", "blue", "blue", "blue", ];
-
-    new Chart("myChart", {
-        type: "bar",
-
-        data: {
-            responsive: true,
-            maintainAspectRatio: false,
-            labels: xValues,
-            datasets: [{
-                data: yValues,
-                borderColor: "#2196F3",
-                backgroundColor: "#2196F3",
-                borderRadius: 10,
-
-            }]
-
-
-        },
-        options: {
-            legend: {
-                display: false
-            },
-            title: {
-
-                display: true,
-                text: "Occurances"
-            }
-        }
-    });
-    var ctx = document.getElementById('chart').getContext('2d');
-
-    var gradient = ctx.createLinearGradient(0, 0, 0, 300);
-    gradient.addColorStop(0, 'rgba(227, 28, 121, 0.5)');
-    gradient.addColorStop(0.55, 'rgba(227, 28, 121,0)');
-
-    var myChart = new Chart(ctx, {
-      type: 'line',
-      data: {
-        
-        datasets: [{
-          backgroundColor: gradient,
-          borderColor:"#E31C79",
-          label: 'Numbers',
-          fill: true,
-          data: [0, 4, 2, 3, 1, 0],
-        }]
-      },
-      options: {
-        scales: {
-          y: {
-            beginAtZero: true
-          },
-          x: {
-            beginAtZero: true
-          }
-        },
-        tension: 0.3
-      }
-    });
+ 
     function resetRight() {
 
         document.getElementById("right-slider").value = 0;
         motionReq.open("GET", "http://" + ip + "/motion?left=" + document.getElementById("left-slider").value +
             "&right=" + document.getElementById("right-slider").value, true);
         motionReq.send();
-
+        document.getElementById("right-speed").innerHTML = document.getElementById("right-slider").value ;
     };
 
     function resetLeft() {
@@ -276,7 +218,8 @@
         motionReq.open("GET", "http://" + ip + "/motion?left=" + document.getElementById("left-slider").value +
             "&right=" + document.getElementById("right-slider").value, true);
         motionReq.send();
-
+        
+        document.getElementById("left-speed").innerHTML = document.getElementById("left-slider").value ;
 
     };
 
@@ -284,13 +227,15 @@
         motionReq.open("GET", "http://" + ip + "/motion?left=" + this.value + "&right=" + document
             .getElementById("right-slider").value);
         motionReq.send();
-        console.log("left:" + this.value)
+        
+        document.getElementById("left-speed").innerHTML = this.value;
     });
     rightSlider.on('input', function () {
         motionReq.open("GET", "http://" + ip + "/motion?left=" + document.getElementById("left-slider").value +
             "&right=" + this.value);
         motionReq.send();
-        console.log("right:" + this.value)
+        
+        document.getElementById("right-speed").innerHTML = this.value;
     });
 </script>
 
