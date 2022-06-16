@@ -1,0 +1,26 @@
+int analogPin1 = A0; // potentiometer wiper (middle terminal) connected to analog pin 3
+                    // outside leads to ground and +5V
+int analogPin2 = A1;
+int val1 = 0; // variable to store the value read
+int val2 = 0;
+int max1;
+int max2;
+int a;
+void setup() {
+  Serial.begin(9600);           //  setup serial
+}
+
+void loop() {
+  val1 = analogRead(analogPin1);  // read the input pin
+  val2 = analogRead(analogPin2);
+  float volt1 = val1 * (5000 / 1024);
+  float volt2 = val2 * (5000 / 1024);
+  if(volt1 > 500 ){
+  Serial.println("89kHz carrier frequency signal are detected");
+ } 
+
+ if(volt2 > 500 ){
+ Serial.println("61kHz carrier frequency signal are detected");
+}
+
+}
