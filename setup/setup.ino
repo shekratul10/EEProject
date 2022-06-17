@@ -39,16 +39,14 @@ void irUpdate(){
   period = offtime + ontime;
   freq = 1000000/period;
   if(ontime != 0) {
-    server.sendHeader("Access-Control-Allow-Origin", "*");
-    server.send(200, F("text/plain"), (String(freq)+" Hz"));
-//    if(freq > 340.91 && freq < 366.78) {
-//       server.sendHeader("Access-Control-Allow-Origin", "*");
-//      server.send(200, F("text/plain"), F("353 Hz"));
-//    }
-//    else if(freq > 564.97 && freq < 585.28) {
-//      server.sendHeader("Access-Control-Allow-Origin", "*");
-//      server.send(200, F("text/plain"), F("571 Hz"));
-//    }
+    if(freq > 340.91 && freq < 366.78) {
+       server.sendHeader("Access-Control-Allow-Origin", "*");
+      server.send(200, F("text/plain"), F("353 Hz"));
+    }
+    else if(freq > 564.97 && freq < 585.28) {
+      server.sendHeader("Access-Control-Allow-Origin", "*");
+      server.send(200, F("text/plain"), F("571 Hz"));
+    }
   }
   else{
     server.sendHeader("Access-Control-Allow-Origin", "*");
