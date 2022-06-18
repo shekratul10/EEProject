@@ -83,13 +83,19 @@ void rModUpdate(){
     }
     else if(freq < 254.84 && freq > 237.47)
       count239++;
-  }
-  if((!count151 == 0 && count239 == 0)||(count151 == 0 && !count239 == 0){
-    if(count151 == 2 && count239 == 0){
-      //
     }
-    else if(count151 == 0 && count239 == 2){
-      //
+    else {
+      server.sendHeader("Access-Control-Allow-Origin", "*");
+      server.send(200, F("text/plain"), F("None");
+    if((!count151 == 0 && count239 == 0)||(count151 == 0 && !count239 == 0){
+      if(count151 == 2 && count239 == 0){
+        server.sendHeader("Access-Control-Allow-Origin", "*");
+        server.send(200, F("text/plain"), F("151"));
+      }
+      else if(count151 == 0 && count239 == 2){
+        server.sendHeader("Access-Control-Allow-Origin", "*");
+        server.send(200, F("text/plain"), F("239"));
+      }
     }
   }
   else if(!count151 == 0 && !count239 == 0){
@@ -230,6 +236,7 @@ void setup()
   server.on(F("/ir"), irUpdate);
   server.on(F("/mag"), magUpdate);
   server.on(F("/us"), usUpdate);
+  server.on(F("/rmod"), rModUpdate);
   server.on(F("/motion"),handleMotion);
   server.onNotFound(handleNotFound);
   
