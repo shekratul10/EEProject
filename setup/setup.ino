@@ -13,11 +13,9 @@ const int radRead = 2;
 const int usRead = 4;
 const char ssid[] = "HUAWEI nova 5T";
 const char pass[] = "password";
-const char carRead = 'A0';
-const char magRead = 'A1';
 const int groupNumber = 5; // Set your group number to make the IP address constant - only do this on the EEERover network
 
-
+//
 
 float freq, period;
 int ontime, offtime, count151 = 0, count239 = 0;
@@ -57,7 +55,7 @@ void irUpdate(){
 
 //done
 void magUpdate(){
-  int val = analogRead(magRead);
+  int val = analogRead(A1);
   Serial.println(val);
   if(val<140){
     server.sendHeader("Access-Control-Allow-Origin", "*");
@@ -80,33 +78,21 @@ void rModUpdate(){
   freq = 1000000/period;
   if(ontime != 0){
     if(freq < 154.18 && freq > 147.11){
-      count151++;
+      server.sendHeader("Access-Control-Allow-Origin", "*");
+      server.send(200, F("text/plain"), F("151 Hz"));
     }
     else if(freq < 254.84 && freq > 237.47)
-      count239++;
+      server.sendHeader("Access-Control-Allow-Origin", "*");
+      server.send(200, F("text/plain"), F("239 Hz"));
     }
     else {
       server.sendHeader("Access-Control-Allow-Origin", "*");
-      server.send(200, F("text/plain"), F("None");
-    if((!count151 == 0 && count239 == 0)||(count151 == 0 && !count239 == 0){
-      if(count151 == 2 && count239 == 0){
-        server.sendHeader("Access-Control-Allow-Origin", "*");
-        server.send(200, F("text/plain"), F("151 Hz"));
-      }
-      else if(count151 == 0 && count239 == 2){
-        server.sendHeader("Access-Control-Allow-Origin", "*");
-        server.send(200, F("text/plain"), F("239 Hz"));
-      }
+      server.send(200, F("text/plain"), F("None"));
     }
-  }
-  else if(!count151 == 0 && !count239 == 0){
-    count151 = count239 = 0;
-  }
-  
 }
 
 void rCarUpdate(){
-  int tmp = analogRead(carRead);
+  int tmp = analogRead(A0);
   float amplitude = tmp * (5000/1024);
   if(amplitude > 500) {
     // 89 kHz carrier frequency only
@@ -202,11 +188,11 @@ void handleMotion(){
 void setup()
 {
   pinMode(LED_BUILTIN, OUTPUT);
-  pinMode(magRead, INPUT);
+  pinMode(A1, INPUT);
   pinMode(radRead, INPUT);
   pinMode(irRead, INPUT);
   pinMode(modRead, INPUT);
-  pinMode(carRead, INPUT);
+  pinMode(A0, INPUT);
   Serial.begin(9600);
   pinMode(l_en,OUTPUT);
   pinMode(l_dir,OUTPUT);

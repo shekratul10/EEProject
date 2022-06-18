@@ -148,7 +148,8 @@
 
     var motionReq = new XMLHttpRequest();
     var irReq = new XMLHttpRequest();
-    var radioReq = new XMLHttpRequest();
+    var radMReq = new XMLHttpRequest();
+    var radCReq = new XMLHttpRequest();
     var magReq = new XMLHttpRequest();
     var usReq = new XMLHttpRequest();
     var ir;
@@ -206,7 +207,7 @@
         magReq.send();
         radMReq.open("GET", "http://"+ip+"/radM");
         radMReq.send();
-        radMReq.open("GET", "http://"+ip+"/radC");
+        radCReq.open("GET", "http://"+ip+"/radC");
         radCReq.send();
         predict();
     };
