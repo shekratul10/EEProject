@@ -7,12 +7,14 @@ int l_dir = 13;
 int r_en = 8;
 int r_dir = 9; //for motor controls
 const int irRead = 3;
-const int magRead = 0;
+//const int magRead = 0;
 const int modRead = 1;
 const int radRead = 2;
 const int usRead = 4;
 const char ssid[] = "HUAWEI nova 5T";
 const char pass[] = "password";
+const char carRead = 'A0';
+const char magRead = 'A1';
 const int groupNumber = 5; // Set your group number to make the IP address constant - only do this on the EEERover network
 
 
@@ -57,11 +59,11 @@ void irUpdate(){
 void magUpdate(){
   int val = analogRead(magRead);
   Serial.println(val);
-  if(val>270){
+  if(val<140){
     server.sendHeader("Access-Control-Allow-Origin", "*");
     server.send(200, F("text/plain"), F("South"));
   }
-  else if(val<230){
+  else if(val>350){
     server.sendHeader("Access-Control-Allow-Origin", "*");
     server.send(200, F("text/plain"), F("North"));
   }
@@ -104,7 +106,7 @@ void rModUpdate(){
 }
 
 void rCarUpdate(){
-  int tmp = analogRead(A0);
+  int tmp = analogRead(carRead);
   float amplitude = tmp * (5000/1024);
   if(amplitude > 500) {
     // 89 kHz carrier frequency only
@@ -204,7 +206,7 @@ void setup()
   pinMode(radRead, INPUT);
   pinMode(irRead, INPUT);
   pinMode(modRead, INPUT);
-  pinMode(A0, INPUT);
+  pinMode(carRead, INPUT);
   Serial.begin(9600);
   pinMode(l_en,OUTPUT);
   pinMode(l_dir,OUTPUT);
@@ -248,6 +250,7 @@ void setup()
   server.on(F("/mag"), magUpdate);
   server.on(F("/us"), usUpdate);
   server.on(F("/rmod"), rModUpdate);
+  server.on(F("/rcar"), rCarUpdate);
   server.on(F("/motion"),handleMotion);
   server.onNotFound(handleNotFound);
   
