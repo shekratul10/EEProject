@@ -13,7 +13,6 @@ const int radRead = 2;
 const int usRead = 4;
 const char ssid[] = "HUAWEI nova 5T";
 const char pass[] = "password";
-int uscount=0;
 const int groupNumber = 5; // Set your group number to make the IP address constant - only do this on the EEERover network
 
 
@@ -38,7 +37,7 @@ void irUpdate(){
   offtime = pulseIn(3, LOW);
   period = offtime + ontime;
   freq = 1000000/period;
-  if(ontime != 0) {
+  if(offtime != 0) {
     if(freq > 340.91 && freq < 366.78) {
        server.sendHeader("Access-Control-Allow-Origin", "*");
       server.send(200, F("text/plain"), F("353 Hz"));
@@ -90,11 +89,11 @@ void rModUpdate(){
     if((!count151 == 0 && count239 == 0)||(count151 == 0 && !count239 == 0){
       if(count151 == 2 && count239 == 0){
         server.sendHeader("Access-Control-Allow-Origin", "*");
-        server.send(200, F("text/plain"), F("151"));
+        server.send(200, F("text/plain"), F("151 Hz"));
       }
       else if(count151 == 0 && count239 == 2){
         server.sendHeader("Access-Control-Allow-Origin", "*");
-        server.send(200, F("text/plain"), F("239"));
+        server.send(200, F("text/plain"), F("239 Hz"));
       }
     }
   }
@@ -104,8 +103,19 @@ void rModUpdate(){
   
 }
 
-
-
+void rCarUpdate(){
+  int tmp = analogRead(A0);
+  float amplitude = tmp * (5000/1024);
+  if(amplitude > 500) {
+    // 89 kHz carrier frequency only
+    server.sendHeader("Access-Control-Allow-Origin", "*");
+    server.send(200, F("text/plain"), F("89000 Hz"));
+  }
+  else {
+    server.sendHeader("Access-Control-Allow-Origin", "*");
+    server.send(200, F("text/plain"), F("None"));
+  }
+}
 
 void usUpdate(){
   
@@ -194,6 +204,7 @@ void setup()
   pinMode(radRead, INPUT);
   pinMode(irRead, INPUT);
   pinMode(modRead, INPUT);
+  pinMode(A0, INPUT);
   Serial.begin(9600);
   pinMode(l_en,OUTPUT);
   pinMode(l_dir,OUTPUT);
