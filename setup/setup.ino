@@ -6,9 +6,9 @@ int l_en = 12;
 int l_dir = 13;
 int r_en = 8;
 int r_dir = 9; //for motor controls
-const int irRead = 1;
-//10 and 11 are broken it seems
+const int irRead = 3;
 const int magRead = 0;
+const int modRead = 1;
 const int radRead = 2;
 const int usRead = 4;
 const char ssid[] = "HUAWEI nova 5T";
@@ -19,7 +19,7 @@ const int groupNumber = 5; // Set your group number to make the IP address const
 
 
 float freq, period;
-int ontime, offtime;
+int ontime, offtime, count151 = 0, count239 = 0;
 //Webpage to return when root is requested
 const char webpage[] = 
 R"=====(<html><head><style>
@@ -71,6 +71,34 @@ void magUpdate(){
     server.send(200, F("text/plain"), F("None"));
   }
 }
+
+void rModUpdate(){
+  ontime = pulseIn(modRead, HIGH);
+  offtime = pulseIn(modRead, LOW);
+  period = ontime + offtime;
+  freq = 1000000/period;
+  if(ontime != 0){
+    if(freq < 154.18 && freq > 147.11){
+      count151++;
+    }
+    else if(freq < 254.84 && freq > 237.47)
+      count239++;
+  }
+  if((!count151 == 0 && count239 == 0)||(count151 == 0 && !count239 == 0){
+    if(count151 == 2 && count239 == 0){
+      //
+    }
+    else if(count151 == 0 && count239 == 2){
+      //
+    }
+  }
+  else if(!count151 == 0 && !count239 == 0){
+    count151 = count239 = 0;
+  }
+  
+}
+
+
 
 
 void usUpdate(){
@@ -159,6 +187,7 @@ void setup()
   pinMode(magRead, INPUT);
   pinMode(radRead, INPUT);
   pinMode(irRead, INPUT);
+  pinMode(modRead, INPUT);
   Serial.begin(9600);
   pinMode(l_en,OUTPUT);
   pinMode(l_dir,OUTPUT);
