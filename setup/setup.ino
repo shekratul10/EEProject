@@ -2,13 +2,12 @@
 #define USE_WIFI_NINA false    
 #define USE_WIFI101           true
 #include <WiFiWebServer.h>
-int l_en = 12;
-int l_dir = 13;
-int r_en = 8;
-int r_dir = 9; //for motor controls
-const int irRead = 1;
-//10 and 11 are broken it seems
-const int magRead = 0;
+int l_en = 6;//12;
+int l_dir = 8; //13;
+int r_en = A5;//8;
+int r_dir = 3;//9; //for motor controls
+const int irRead = 3;
+const int magRead = A0;
 const int radRead = 2;
 const int usRead = 4;
 const char ssid[] = "HUAWEI nova 5T";
@@ -38,7 +37,7 @@ void irUpdate(){
   offtime = pulseIn(3, LOW);
   period = offtime + ontime;
   freq = 1000000/period;
-  if(ontime != 0) {
+  if(offtime != 0) {
     server.sendHeader("Access-Control-Allow-Origin", "*");
     server.send(200, F("text/plain"), (String(freq)+" Hz"));
 //    if(freq > 340.91 && freq < 366.78) {
@@ -114,7 +113,7 @@ void handleNotFound()
   server.send(404, F("text/plain"), message);
 }
 
-void motion(float l_in, float r_in) {
+void motion(int l_in, int r_in) {
  
   if(l_in > 0){ //forward
     digitalWrite(l_dir, HIGH);
@@ -124,8 +123,6 @@ void motion(float l_in, float r_in) {
   }
   if(r_in > 0){ 
     digitalWrite(r_dir, HIGH);
-    
-    
   }
   else if(r_in < 0){ 
     digitalWrite(r_dir, LOW);
@@ -135,14 +132,11 @@ void motion(float l_in, float r_in) {
   analogWrite(r_en, abs(r_in));
   Serial.println(l_in);
   Serial.println(r_in);
- 
-  
-  
 }
 void handleMotion(){
   if(server.arg("left")&& server.arg("right")){
-    int right=(server.arg("right")).toInt();
-    int left=(server.arg("left")).toInt();
+      int right=(server.arg("right")).toInt();
+      int left=(server.arg("left")).toInt();
      
      server.sendHeader("Access-Control-Allow-Origin", "*");
      motion(left,right);

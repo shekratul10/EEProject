@@ -307,6 +307,36 @@ input[type="range"] {
     border-radius: 50%;
     
    }
+   .video-mask{
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    /* border-radius: 1rem; 
+    overflow: hidden;  */
+    object-fit: fill;
+    }
+   
+#videoElement {
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: -1;
+  }
+  .acrylic {
+
+    position: relative;
+    background: rgba(84, 84, 84, 0.5);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(30px);
+
+  }
+
+
    
    
 

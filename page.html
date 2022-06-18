@@ -11,130 +11,143 @@
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.8.0/dist/chart.min.js"></script>
 
+
 </head>
 
 <body>
+    <!-- <div class="video-mask">
+        <video autoplay="true" id="videoElement">
+
+        </video>
+    </div> -->
+    <video autoplay="true" id="videoElement"></video>
+
     <h1>REEEMOTE</h1>
 
-    <div class="statuses">
-        <div class="status">
-            <div class="title">🔦 INFRARED</div>
 
-            <svg viewbox="0 0 100 100">
-                <path fill="none" stroke-linecap="round" stroke-width="5" stroke="#ddd" d="M50 10
-           a 40 40 0 0 1 0 80
-           a 40 40 0 0 1 0 -80" />
-                <path fill="none" stroke-linecap="round" stroke-width="5" stroke="#40e0d0" stroke-dasharray="62.8,251.2"
-                    d="M50 10
+        <div class="statuses">
+            <div class="status">
+                <div class="title">🔦 INFRARED</div>
+
+                <svg viewbox="0 0 100 100">
+                    <path fill="none" stroke-linecap="round" stroke-width="5" stroke="#ddd" d="M50 10
        a 40 40 0 0 1 0 80
        a 40 40 0 0 1 0 -80" />
-                <text x="50" y="40" text-anchor="middle" dy="7" font-size="8" font-weight="600">Frequency</text>
-                <text x="50" y="55" text-anchor="middle" dy="7" font-size="15" font-weight="600" id="irState"
-                    fill="#40e0d0">None</text>
-            </svg>
-        </div>
-        <div class="status">
-            <div class="title">📡 RADIO</div>
-            <svg viewbox="0 0 100 100">
-                <path fill="none" stroke-linecap="round" stroke-width="5" stroke="#ddd" d="M50 10
-           a 40 40 0 0 1 0 80
-           a 40 40 0 0 1 0 -80" />
-                <path fill="none" stroke-linecap="round" stroke-width="5" stroke="#E31C79"
-                    stroke-dasharray="125.6,125.6" d="M50 10
-           a 40 40 0 0 1 0 80
-           a 40 40 0 0 1 0 -80" />
-                <text x="50" y="40" text-anchor="middle" dy="7" font-size="8" font-weight="600">Frequency</text>
-                <text x="50" y="55" text-anchor="middle" dy="7" font-size="15" id="radSate" font-weight="600"
-                    fill="#E31C79">None</text>
-            </svg>
-            <div class="info-col">
-                <div class="carrier">Carrier</div>
-                <div class="num">None</div>
+                    <path fill="none" stroke-linecap="round" stroke-width="5" stroke="#40e0d0"
+                        stroke-dasharray="62.8,251.2" d="M50 10
+   a 40 40 0 0 1 0 80
+   a 40 40 0 0 1 0 -80" />
+                    <text x="50" y="40" text-anchor="middle" dy="7" font-size="8" font-weight="600">Frequency</text>
+                    <text x="50" y="55" text-anchor="middle" dy="7" font-size="15" font-weight="600" id="irState"
+                        fill="#40e0d0">None</text>
+                </svg>
             </div>
-
-
-        </div>
-        <div class="status">
-
-
-            <div class="info-col-sig">
-                <div class="centered">
-                    <div class="info-title">🧲 MAGNETIC</div>
-                    <div class="info-num" id="magState">None</div>
-                    <div class="info-units">🧭 Polarity</div>
-                </div>
-            </div>
-            <hr>
-            <div class="info-col-sig">
-                <div class="centered">
-                    <div class="info-title">🔊 ULTRASONIC</div>
-                    <div class="info-num" id="usState">None</div>
-                    <div class="info-units">🔉 Decibles</div>
-                </div>
-
-            </div>
-
-
-
-
-        </div>
-    </div>
-    <div class="controls">
-        <div class="status motion-bar">
-            <div class="info-title">LEFT</div>
-            <div class="range-slider">
-                <input id="left-slider" onmouseup="resetLeft();" ontouchend="resetLeft();" class="input-range"
-                    orient="vertical" type="range" step="5" value="0" min="-255" max="255">
-
-            </div>
-            <!-- <div id="joy1Div" style="width:65%;height:65%;margin:1rem"></div> -->
-        </div>
-
-        <div class="status data-bar">
-            <div class="title">📈 DATA</div>
-            <hr>
-            <div class="data-cols">
+            <div class="status">
+                <div class="title">📡 RADIO</div>
+                <svg viewbox="0 0 100 100">
+                    <path fill="none" stroke-linecap="round" stroke-width="5" stroke="#ddd" d="M50 10
+       a 40 40 0 0 1 0 80
+       a 40 40 0 0 1 0 -80" />
+                    <path fill="none" stroke-linecap="round" stroke-width="5" stroke="#E31C79"
+                        stroke-dasharray="125.6,125.6" d="M50 10
+       a 40 40 0 0 1 0 80
+       a 40 40 0 0 1 0 -80" />
+                    <text x="50" y="40" text-anchor="middle" dy="7" font-size="8" font-weight="600">Frequency</text>
+                    <text x="50" y="55" text-anchor="middle" dy="7" font-size="15" id="radSate" font-weight="600"
+                        fill="#E31C79">None</text>
+                </svg>
                 <div class="info-col">
-                    <div class="info-title">Left</div>
-                    <div class="info-num" id="left-speed">0</div>
-                    <div class="info-units" >🚗RPM</div>
+                    <div class="carrier">Carrier</div>
+                    <div class="num">None</div>
                 </div>
-                <div class="info-col">
-                    <div class="info-title">Prediction</div>
-                    <div class="info-num">🪨</div>
-                    <div class="info-units" id="prediction">Netherite</div>
-         
-           
-                </div>
-                <div class="info-col">
-                    <div class="info-title">Right</div>
-                    <div class="info-num"  id="right-speed">0</div>
-                    <div class="info-units">🚗PRM</div>
-                </div>
-            </div>
 
-        </div>
-        <div class="status motion-bar">
-            <div class="info-title">RIGHT</div>
-            <div class="range-slider">
-                <input id="right-slider" class="input-range" onmouseup="resetRight();" ontouchend="resetRight();"
-                    orient="vertical" type="range" step="5" value="0" min="-255" max="255">
 
             </div>
-            <!-- <div id="joy1Div" style="width:65%;height:65%;margin:1rem"></div> -->
+            <div class="status">
+
+
+                <div class="info-col-sig">
+                    <div class="centered">
+                        <div class="info-title">🧲 MAGNETIC</div>
+                        <div class="info-num" id="magState">None</div>
+                        <div class="info-units">🧭 Polarity</div>
+                    </div>
+                </div>
+                <hr>
+                <div class="info-col-sig">
+                    <div class="centered">
+                        <div class="info-title">🔊 ULTRASONIC</div>
+                        <div class="info-num" id="usState">None</div>
+                        <div class="info-units">🔉 Decibles</div>
+                    </div>
+
+                </div>
+
+
+
+
+            </div>
         </div>
-    </div>
+        <div class="controls">
+            <div class="status motion-bar">
+                <div class="info-title">LEFT</div>
+                <div class="range-slider">
+                    <input id="left-slider" onmouseup="resetLeft();" ontouchend="resetLeft();" class="input-range"
+                        orient="vertical" type="range" step="5" value="0" min="-255" max="255">
+
+                </div>
+                <!-- <div id="joy1Div" style="width:65%;height:65%;margin:1rem"></div> -->
+            </div>
+
+            <div class="status data-bar">
+                <div class="title">📈 DATA</div>
+                <hr>
+                <div class="data-cols">
+                    <div class="info-col">
+                        <div class="info-title">Left</div>
+                        <div class="info-num" id="left-speed">0</div>
+                        <div class="info-units">🚗RPM</div>
+                    </div>
+                    <div class="info-col">
+                        <div class="info-title">Prediction</div>
+                        <div class="info-num" >🪨</div>
+                        <div class="info-units">Rock</div>
+                    </div>
+                   
+                    <div class="info-col">
+                        <div class="info-title">Right</div>
+                        <div class="info-num" id="right-speed">0</div>
+                        <div class="info-units">🚗PRM</div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="status motion-bar">
+                <div class="info-title">RIGHT</div>
+                <div class="range-slider">
+                    <input id="right-slider" class="input-range" onmouseup="resetRight();" ontouchend="resetRight();"
+                        orient="vertical" type="range" step="5" value="0" min="-255" max="255">
+                </div>
+                <!-- <div id="joy1Div" style="width:65%;height:65%;margin:1rem"></div> -->
+            </div>
+        </div>
 
         <div class="status scan-bar">
             <div class="title button">SCAN</div>
             <button onclick="update()">UPDATE</button>
             <div class="title button">SECRET</div>
-           
+
             <label class="switch">
                 <input type="checkbox">
                 <span class="slider round"></span>
             </label>
         </div>
+    
+
+
+
+
+    
 
 
 </body>
@@ -144,7 +157,21 @@
     // var ip="192.168.0.6";
     //// ip for damanis hotspot
     const ip = "192.168.43.6"
+    var video = document.querySelector("#videoElement");
 
+    if (navigator.mediaDevices.getUserMedia) {
+        navigator.mediaDevices.getUserMedia({
+                video: {
+                    facingMode: "environment"
+                }
+            })
+            .then(function (stream) {
+                video.srcObject = stream;
+            })
+            .catch(function (err0r) {
+                console.log("Something went wrong!");
+            });
+    }
 
     var motionReq = new XMLHttpRequest();
     var irReq = new XMLHttpRequest();
@@ -157,6 +184,7 @@
     var pred = "noting";
     var leftSlider = $('#left-slider');
     var rightSlider = $('#right-slider');
+
     irReq.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             document.getElementById("irState").innerHTML = this.responseText;
@@ -183,11 +211,11 @@
     };
     motionReq.onreadystatechange = function () {
         if (motionReq.readyState == 4 && motionReq.status == 200) {
-           
+
         }
     }
 
-    function predict(){
+    function predict() {
 
     }
 
@@ -196,45 +224,41 @@
         irReq.send();
         usReq.open("GET", "http://" + ip + "/us");
         usReq.send();
-        magReq.open("GET", "http://"+ip+"/mag");
-        magReq.send();
+        //magReq.open("GET", "http://"+ip+"/mag");
+        //magReq.send();
         //radioReq.open("GET", "http://"+ip+"/rad");
         //radioReq.send();
         predict();
     };
- 
+
     function resetRight() {
 
         document.getElementById("right-slider").value = 0;
-        motionReq.open("GET", "http://" + ip + "/motion?left=" + document.getElementById("left-slider").value +
-            "&right=" + document.getElementById("right-slider").value, true);
+        motionReq.open("GET", "http://" + ip + "/motion?left=" + document.getElementById("left-slider").value, true);
         motionReq.send();
-        document.getElementById("right-speed").innerHTML = document.getElementById("right-slider").value ;
+        document.getElementById("right-speed").innerHTML = document.getElementById("right-slider").value;
     };
 
     function resetLeft() {
 
         document.getElementById("left-slider").value = 0;
-        motionReq.open("GET", "http://" + ip + "/motion?left=" + document.getElementById("left-slider").value +
-            "&right=" + document.getElementById("right-slider").value, true);
+        motionReq.open("GET", "http://" + ip + "/motion?left=" + document.getElementById("left-slider").value, true);
         motionReq.send();
-        
-        document.getElementById("left-speed").innerHTML = document.getElementById("left-slider").value ;
+
+        document.getElementById("left-speed").innerHTML = document.getElementById("left-slider").value;
 
     };
 
     leftSlider.on('input', function () {
-        motionReq.open("GET", "http://" + ip + "/motion?left=" + this.value + "&right=" + document
-            .getElementById("right-slider").value);
+        motionReq.open("GET", "http://" + ip + "/motion?left=" + this.value, true);
         motionReq.send();
-        
+
         document.getElementById("left-speed").innerHTML = this.value;
     });
     rightSlider.on('input', function () {
-        motionReq.open("GET", "http://" + ip + "/motion?left=" + document.getElementById("left-slider").value +
-            "&right=" + this.value);
+        motionReq.open("GET", "http://" + ip + "/motion?right=" + this.value, true);
         motionReq.send();
-        
+
         document.getElementById("right-speed").innerHTML = this.value;
     });
 </script>
