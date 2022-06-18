@@ -249,8 +249,8 @@ void setup()
   server.on(F("/ir"), irUpdate);
   server.on(F("/mag"), magUpdate);
   server.on(F("/us"), usUpdate);
-  server.on(F("/rmod"), rModUpdate);
-  server.on(F("/rcar"), rCarUpdate);
+  server.on(F("/radM"), rModUpdate);
+  server.on(F("/radC"), rCarUpdate);
   server.on(F("/motion"),handleMotion);
   server.onNotFound(handleNotFound);
   

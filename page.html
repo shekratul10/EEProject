@@ -44,11 +44,11 @@
            a 40 40 0 0 1 0 80
            a 40 40 0 0 1 0 -80" />
                 <text x="50" y="40" text-anchor="middle" dy="7" font-size="8" font-weight="600">Frequency</text>
-                <text x="50" y="55" text-anchor="middle" dy="7" font-size="15" id="radSate" font-weight="600"
+                <text x="50" y="55" text-anchor="middle" dy="7" font-size="15" id="radMSate" font-weight="600"
                     fill="#E31C79">None</text>
             </svg>
             <div class="info-col">
-                <div class="carrier">Carrier</div>
+                <div class="carrier" id="radCState">Carrier</div>
                 <div class="num">None</div>
             </div>
 
@@ -169,9 +169,15 @@
             console.log(this.responseText);
         }
     };
-    radioReq.onreadystatechange = function () {
+    radCReq.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
-            document.getElementById("radState").innerHTML = this.responseText;
+            document.getElementById("radCState").innerHTML = this.responseText;
+            console.log(this.responseText);
+        }
+    };
+    radMReq.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            document.getElementById("radMState").innerHTML = this.responseText;
             console.log(this.responseText);
         }
     };
@@ -198,8 +204,10 @@
         usReq.send();
         magReq.open("GET", "http://"+ip+"/mag");
         magReq.send();
-        radioReq.open("GET", "http://"+ip+"/rad");
-        radioReq.send();
+        radMReq.open("GET", "http://"+ip+"/radM");
+        radMReq.send();
+        radMReq.open("GET", "http://"+ip+"/radC");
+        radCReq.send();
         predict();
     };
  
