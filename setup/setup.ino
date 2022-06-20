@@ -34,6 +34,10 @@ R"=====(<html><head><style>
 WiFiWebServer server(80);
 void irUpdate(){
   // this function is fully operational
+  // IR seems like the most consistent sensor circuit that reports accurately to the website
+
+
+
   ontime = pulseIn(3, HIGH);
   offtime = pulseIn(3, LOW);
   period = offtime + ontime;
@@ -84,6 +88,9 @@ void rModUpdate(){
   if(ontime != 0){
     
     if(freq < 152.18 && freq > 149.11){
+      // for some reason when there is a modulating signal of frequency 151 Hz
+      // the script for this if statement as well as the one for 239 is executed
+      // as well - this is some undefined behaviour.
       server.sendHeader("Access-Control-Allow-Origin", "*");
       server.send(200, F("text/plain"), F("151 Hz"));
       Serial.println("modulating true");
@@ -100,10 +107,17 @@ void rModUpdate(){
 }
 
 void rCarUpdate(){
+  // the nature of the analogue input pins is harder to predict, carrier frequency only works for 89 kHz detection with the existing implementation. Does not work with 61 kHz. 
+  // need to determine the threshold value for the analogue input pin for a fixed height of the rover
+  // the amplitude modulated part of the signal has a voltage of around 1.0 V. 
+  // since the signal is amplitude modulation, there is a chance the data is sampled in the non-AM section of the waveform. This results in an inaccurate reading for the carrier frequency
+  // doesn't help that only one carrier frequency value can be sampled from the mineral, if the positioning of the rock is precise. 
+  // may need to use the other signals to determine the correct mineral type out of the six.
+  
   int tmp = analogRead(A0);
   Serial.println(tmp);
   //float amplitude = tmp * (5000/1024);
-  if(tmp > 150) {
+  if(tmp > 150) { // this analogue value may not be accurate
     // 89 kHz carrier frequency only
     server.sendHeader("Access-Control-Allow-Origin", "*");
     server.send(200, F("text/plain"), F("89 kHz"));
@@ -116,6 +130,10 @@ void rCarUpdate(){
 }
 
 void usUpdate(){
+  // was functional before the circuit was short-circuited via soldering
+  // the soldering joint has been fixed, need to determine the performance of the sensor
+  // just reports the frequency of 
+
   ontime = pulseIn(4, HIGH);
   offtime = pulseIn(4, LOW);
   period = offtime + ontime;
