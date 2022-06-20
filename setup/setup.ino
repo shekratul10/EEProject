@@ -33,7 +33,7 @@ R"=====(<html><head><style>
 
 WiFiWebServer server(80);
 void irUpdate(){
-
+  // this function is fully operational
   ontime = pulseIn(3, HIGH);
   offtime = pulseIn(3, LOW);
   period = offtime + ontime;
@@ -48,6 +48,7 @@ void irUpdate(){
       server.send(200, F("text/plain"), (String(freq)+" Hz"));
     }
     else {
+      // undefined pulse behaviour at 100 Hz needs to produce a "none" for pulses detected
       server.sendHeader("Access-Control-Allow-Origin", "*");
     server.send(200, F("text/plain"), F("None"));
     }
@@ -58,7 +59,6 @@ void irUpdate(){
   }
 }
 
-//done
 void magUpdate(){
   int val = analogRead(A1);
   Serial.println(val);
