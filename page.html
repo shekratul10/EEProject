@@ -143,7 +143,10 @@
     ////ip for eerover
     // var ip="192.168.0.6";
     //// ip for damanis hotspot
-    const ip = "192.168.43.6"
+    //const ip = "192.168.43.6"
+    // iphone hotspot ip
+    const ip = "172.20.10.6";
+
 
 
     var motionReq = new XMLHttpRequest();
@@ -158,6 +161,7 @@
     var pred = "noting";
     var leftSlider = $('#left-slider');
     var rightSlider = $('#right-slider');
+   
     irReq.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             document.getElementById("irState").innerHTML = this.responseText;

@@ -6,13 +6,14 @@ int l_en = 12;
 int l_dir = 13;
 int r_en = 8;
 int r_dir = 9; //for motor controls
-const int irRead = 3;
-//const int magRead = 0;
 const int modRead = 1;
-const int radRead = 2;
+const int irRead = 3;
 const int usRead = 4;
-const char ssid[] = "HUAWEI nova 5T";
-const char pass[] = "password";
+//const char ssid[] = "HUAWEI nova 5T";
+//const char pass[] = "password";
+
+const char ssid[] = "Anthony's iPhone 11 Pro iOS 16";
+const char pass[] = "ejesjcoc43&/;pkndbs";
 const int groupNumber = 5; // Set your group number to make the IP address constant - only do this on the EEERover network
 
 //
@@ -37,14 +38,18 @@ void irUpdate(){
   offtime = pulseIn(3, LOW);
   period = offtime + ontime;
   freq = 1000000/period;
-  if(offtime != 0) {
+  if(offtime != 0) { // high signal when no input
     if(freq > 340.91 && freq < 366.78) {
        server.sendHeader("Access-Control-Allow-Origin", "*");
-      server.send(200, F("text/plain"), F("353 Hz"));
+      server.send(200, F("text/plain"), (String(freq)+" Hz"));
     }
     else if(freq > 564.97 && freq < 585.28) {
       server.sendHeader("Access-Control-Allow-Origin", "*");
-      server.send(200, F("text/plain"), F("571 Hz"));
+      server.send(200, F("text/plain"), (String(freq)+" Hz"));
+    }
+    else {
+      server.sendHeader("Access-Control-Allow-Origin", "*");
+    server.send(200, F("text/plain"), F("None"));
     }
   }
   else{
@@ -72,18 +77,21 @@ void magUpdate(){
 }
 
 void rModUpdate(){
-  ontime = pulseIn(modRead, HIGH);
-  offtime = pulseIn(modRead, LOW);
+  ontime = pulseIn(1, HIGH);
+  offtime = pulseIn(1, LOW);
   period = ontime + offtime;
   freq = 1000000/period;
   if(ontime != 0){
-    if(freq < 154.18 && freq > 147.11){
+    
+    if(freq < 152.18 && freq > 149.11){
       server.sendHeader("Access-Control-Allow-Origin", "*");
       server.send(200, F("text/plain"), F("151 Hz"));
+      Serial.println("modulating true");
     }
-    else if(freq < 254.84 && freq > 237.47)
+    else if(freq < 243.84 && freq > 237.47)
       server.sendHeader("Access-Control-Allow-Origin", "*");
       server.send(200, F("text/plain"), F("239 Hz"));
+      Serial.println("modulating true2");
     }
     else {
       server.sendHeader("Access-Control-Allow-Origin", "*");
@@ -93,11 +101,13 @@ void rModUpdate(){
 
 void rCarUpdate(){
   int tmp = analogRead(A0);
-  float amplitude = tmp * (5000/1024);
-  if(amplitude > 500) {
+  Serial.println(tmp);
+  //float amplitude = tmp * (5000/1024);
+  if(tmp > 150) {
     // 89 kHz carrier frequency only
     server.sendHeader("Access-Control-Allow-Origin", "*");
-    server.send(200, F("text/plain"), F("89000 Hz"));
+    server.send(200, F("text/plain"), F("89 kHz"));
+    Serial.println("carrier");
   }
   else {
     server.sendHeader("Access-Control-Allow-Origin", "*");
@@ -106,14 +116,15 @@ void rCarUpdate(){
 }
 
 void usUpdate(){
-  
   ontime = pulseIn(4, HIGH);
   offtime = pulseIn(4, LOW);
   period = offtime + ontime;
   freq = 1000000/period;
   if(ontime != 0) {
-    server.sendHeader("Access-Control-Allow-Origin", "*");
-    server.send(200, F("text/plain"), (String(freq)+" Hz"));
+    if(freq > 38461.54 && freq < 43478.26) {
+      server.sendHeader("Access-Control-Allow-Origin", "*");
+      server.send(200, F("text/plain"), (String(freq)+" Hz"));
+    }
     }
   else {
     server.sendHeader("Access-Control-Allow-Origin", "*");
@@ -188,11 +199,11 @@ void handleMotion(){
 void setup()
 {
   pinMode(LED_BUILTIN, OUTPUT);
-  pinMode(A1, INPUT);
-  pinMode(radRead, INPUT);
-  pinMode(irRead, INPUT);
-  pinMode(modRead, INPUT);
-  pinMode(A0, INPUT);
+  pinMode(A1, INPUT); // analogue for magnetic
+  pinMode(irRead, INPUT); // digital pin 3 for ir pulse
+  pinMode(modRead, INPUT); // digital pin 1 for modulating radio wave
+  pinMode(A0, INPUT); // analogue for carrier radio wave
+  pinMode(usRead, INPUT); // digital pin 4 for ultrasonic signals
   Serial.begin(9600);
   pinMode(l_en,OUTPUT);
   pinMode(l_dir,OUTPUT);
@@ -215,11 +226,14 @@ void setup()
 
   //Configure the static IP address if group number is set
   if (groupNumber)
-  ////EERover IP
+  //EERover IP
   //WiFi.config(IPAddress(192,168,0,groupNumber+1));
 
   //Damani Hotspot IP
-    WiFi.config(IPAddress(192,168,43,groupNumber+1));
+  //WiFi.config(IPAddress(192,168,43,groupNumber+1));
+
+  // iphone hotspot 172.20.10.2
+  WiFi.config(IPAddress(172,20,10,groupNumber+1));
 
   // attempt to connect to WiFi network
   Serial.print(F("Connecting to WPA SSID: "));
