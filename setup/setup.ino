@@ -9,11 +9,11 @@ int r_dir = 9; //for motor controls
 const int modRead = 1;
 const int irRead = 3;
 const int usRead = 4;
-//const char ssid[] = "HUAWEI nova 5T";
-//const char pass[] = "password";
+const char ssid[] = "HUAWEI nova 5T";
+const char pass[] = "password";
 
-const char ssid[] = "Anthony's iPhone 11 Pro iOS 16";
-const char pass[] = "ejesjcoc43&/;pkndbs";
+//const char ssid[] = "Anthony's iPhone 11 Pro iOS 16";
+//const char pass[] = "ejesjcoc43&/;pkndbs";
 const int groupNumber = 5; // Set your group number to make the IP address constant - only do this on the EEERover network
 
 //
@@ -67,19 +67,19 @@ void irUpdate(){
 void magUpdate(){
   int val = analogRead(A1);
   Serial.println(val);
-  if(val<450){
+  if(val>355 && val<419){
+    server.sendHeader("Access-Control-Allow-Origin", "*");
+    server.send(200, F("text/plain"), F("None"));
+  }
+  else if(val<=355){
     server.sendHeader("Access-Control-Allow-Origin", "*");
     server.send(200, F("text/plain"), F("South"));
     magsouth = true;
   }
-  else if(val>580){
+  else{
     server.sendHeader("Access-Control-Allow-Origin", "*");
     server.send(200, F("text/plain"), F("North"));
     magnorth = true;
-  }
-  else{
-    server.sendHeader("Access-Control-Allow-Origin", "*");
-    server.send(200, F("text/plain"), F("None"));
   }
 }
 
@@ -290,10 +290,10 @@ void setup()
   //WiFi.config(IPAddress(192,168,0,groupNumber+1));
 
   //Damani Hotspot IP
-  //WiFi.config(IPAddress(192,168,43,groupNumber+1));
+  WiFi.config(IPAddress(192,168,43,groupNumber+1));
 
   // iphone hotspot 172.20.10.2
-  WiFi.config(IPAddress(172,20,10,groupNumber+1));
+  //WiFi.config(IPAddress(172,20,10,groupNumber+1));
 
   // attempt to connect to WiFi network
   Serial.print(F("Connecting to WPA SSID: "));
