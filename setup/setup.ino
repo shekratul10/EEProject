@@ -78,10 +78,6 @@ void magUpdate(){
     server.send(200, F("text/plain"), F("North"));
     magnorth = true;
   }
-  else{
-    server.sendHeader("Access-Control-Allow-Origin", "*");
-    server.send(200, F("text/plain"), F("None"));
-  }
 }
 
 void rModUpdate(){
