@@ -19,7 +19,9 @@ const int groupNumber = 5; // Set your group number to make the IP address const
 //
 
 float freq, period;
-int ontime, offtime, count151 = 0, count239 = 0;
+int ontime, offtime;
+bool ir353 = false, ir571 = false, acoustic = false, mod151=false, mod239=false, magsouth=false, magnorth=false, car89=false;
+
 //Webpage to return when root is requested
 const char webpage[] = 
 R"=====(<html><head><style>
@@ -32,24 +34,23 @@ R"=====(<html><head><style>
 </html>)=====";
 
 WiFiWebServer server(80);
+
 void irUpdate(){
-  // this function is fully operational
-  // IR seems like the most consistent sensor circuit that reports accurately to the website
-
-
-
   ontime = pulseIn(3, HIGH);
   offtime = pulseIn(3, LOW);
   period = offtime + ontime;
-  freq = 1000000/period;
+  freq = 1000000/period; // determines the period of the signal by meausring the time the signal is HIGH and LOW. This functionality is reused in other signals
+  
   if(offtime != 0) { // high signal when no input
     if(freq > 340.91 && freq < 366.78) {
        server.sendHeader("Access-Control-Allow-Origin", "*");
-      server.send(200, F("text/plain"), (String(freq)+" Hz"));
+       server.send(200, F("text/plain"), (String(freq)+" Hz"));
+       ir353 = true;
     }
     else if(freq > 564.97 && freq < 585.28) {
       server.sendHeader("Access-Control-Allow-Origin", "*");
       server.send(200, F("text/plain"), (String(freq)+" Hz"));
+      ir571 = true;
     }
     else {
       // undefined pulse behaviour at 100 Hz needs to produce a "none" for pulses detected
@@ -66,13 +67,15 @@ void irUpdate(){
 void magUpdate(){
   int val = analogRead(A1);
   Serial.println(val);
-  if(val<140){
+  if(val<450){
     server.sendHeader("Access-Control-Allow-Origin", "*");
     server.send(200, F("text/plain"), F("South"));
+    magsouth = true;
   }
-  else if(val>350){
+  else if(val>580){
     server.sendHeader("Access-Control-Allow-Origin", "*");
     server.send(200, F("text/plain"), F("North"));
+    magnorth = true;
   }
   else{
     server.sendHeader("Access-Control-Allow-Origin", "*");
@@ -85,20 +88,17 @@ void rModUpdate(){
   offtime = pulseIn(1, LOW);
   period = ontime + offtime;
   freq = 1000000/period;
-  if(ontime != 0){
-    
+
+  if(ontime != 0){   
     if(freq < 152.18 && freq > 149.11){
-      // for some reason when there is a modulating signal of frequency 151 Hz
-      // the script for this if statement as well as the one for 239 is executed
-      // as well - this is some undefined behaviour.
       server.sendHeader("Access-Control-Allow-Origin", "*");
-      server.send(200, F("text/plain"), F("151 Hz"));
-      Serial.println("modulating true");
+      server.send(200, F("text/plain"), (String(freq)+" Hz"));
+      mod151 = true;
     }
     else if(freq < 243.84 && freq > 237.47)
       server.sendHeader("Access-Control-Allow-Origin", "*");
-      server.send(200, F("text/plain"), F("239 Hz"));
-      Serial.println("modulating true2");
+      server.send(200, F("text/plain"), (String(freq)+" Hz"));
+      mod239 = true;
     }
     else {
       server.sendHeader("Access-Control-Allow-Origin", "*");
@@ -107,13 +107,17 @@ void rModUpdate(){
 }
 
 void rCarUpdate(){
-  // the nature of the analogue input pins is harder to predict, carrier frequency only works for 89 kHz detection with the existing implementation. Does not work with 61 kHz. 
-  // need to determine the threshold value for the analogue input pin for a fixed height of the rover
-  // the amplitude modulated part of the signal has a voltage of around 1.0 V. 
-  // since the signal is amplitude modulation, there is a chance the data is sampled in the non-AM section of the waveform. This results in an inaccurate reading for the carrier frequency
-  // doesn't help that only one carrier frequency value can be sampled from the mineral, if the positioning of the rock is precise. 
-  // may need to use the other signals to determine the correct mineral type out of the six.
-  
+  /*
+    The nature of an analogue pin makes it less reliable than digital signals as it is more susceptible to noise within the signal
+    The amplitudes of the modulated parts of the radio wave are different between the two carrier frequencies. A resonant circuit is used to distinguish
+      between the two carrier frequencies however, only the 89 kHz was implemented. The code will measure the amplitude of the AM section of the signal
+      an if above a certain value when the coil is place x cm away from the top of the exorock, then the code will report the presence of the 89 kHz carrier
+      frequency. The value of the analogue if statement may cause the code to be unreliable because the amplitude of the signal is not constant across the
+      entire waveform and the data may be sampled in the non-AM region of the radio signal, hence not triggering the code. A more robust system needs to be 
+      implemented such as saving the state of the AM section analysis and whether it is above the threshold when the scan samples the non-AM section of the 
+      waveform instead of the AM section of the waveform. Testing will need to determine the suitable parameter value and need to secure the coils to the frame
+      of the frame to ensure the readings are as accurate as possible with the fine-tuning of the analogue read parameter values. 
+  */
   int tmp = analogRead(A0);
   Serial.println(tmp);
   //float amplitude = tmp * (5000/1024);
@@ -122,6 +126,7 @@ void rCarUpdate(){
     server.sendHeader("Access-Control-Allow-Origin", "*");
     server.send(200, F("text/plain"), F("89 kHz"));
     Serial.println("carrier");
+    car89 = false;
   }
   else {
     server.sendHeader("Access-Control-Allow-Origin", "*");
@@ -130,9 +135,6 @@ void rCarUpdate(){
 }
 
 void usUpdate(){
-  // was functional before the circuit was short-circuited via soldering
-  // the soldering joint has been fixed, need to determine the performance of the sensor
-  // just reports the frequency of 
 
   ontime = pulseIn(4, HIGH);
   offtime = pulseIn(4, LOW);
@@ -142,6 +144,7 @@ void usUpdate(){
     if(freq > 38461.54 && freq < 43478.26) {
       server.sendHeader("Access-Control-Allow-Origin", "*");
       server.send(200, F("text/plain"), (String(freq)+" Hz"));
+      acoustic = true;
     }
     }
   else {
@@ -149,6 +152,45 @@ void usUpdate(){
    server.send(200, F("text/plain"), F("None"));
  }
 }
+
+void identifyrock(){
+  if(ir353 == true) {
+    // Thiotimoline
+    server.sendHeader("Access-Control-Allow-Origin", "*");
+    server.send(200, F("text/plain"), F("Thiotimoline"));
+  }
+  else if(ir571 == true && acoustic == true) {
+    // Netherite
+    server.sendHeader("Access-Control-Allow-Origin", "*");
+    server.send(200, F("text/plain"), F("Netherite"));
+  }
+  else if(mod151 == true && acoustic == true){
+    // Gaborium
+    server.sendHeader("Access-Control-Allow-Origin", "*");
+    server.send(200, F("text/plain"), F("Gaborium"));
+  }
+  else if(mod151 == true && magnorth == true){
+    // Adamantine
+    server.sendHeader("Access-Control-Allow-Origin", "*");
+    server.send(200, F("text/plain"), F("Adamantine"));
+  }
+  else if(mod239 == true && magsouth == true){
+    // Xirang
+    server.sendHeader("Access-Control-Allow-Origin", "*");
+    server.send(200, F("text/plain"), F("Xirang"));
+  }
+  else if(mod239 == true){
+    // Lathwaite
+    server.sendHeader("Access-Control-Allow-Origin", "*");
+    server.send(200, F("text/plain"), F("Lathwaite"));
+  }
+  else{
+    server.sendHeader("Access-Control-Allow-Origin", "*");
+    server.send(200, F("text/plain"), F("None"));
+  }
+  ir353 = false, ir571 = false, mod151 = false, mod239 = false, acoustic = false, magnorth = false, magsouth = false, car89 = false;
+}
+
 void handleRoot()
 {
   server.send(200, F("text/html"), webpage);
@@ -269,6 +311,7 @@ void setup()
   server.on(F("/us"), usUpdate);
   server.on(F("/radM"), rModUpdate);
   server.on(F("/radC"), rCarUpdate);
+  server.on(F("/identify"), identifyrock);
   server.on(F("/motion"),handleMotion);
   server.onNotFound(handleNotFound);
   
