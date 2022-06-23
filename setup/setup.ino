@@ -39,17 +39,17 @@ void irUpdate(){
   ontime = pulseIn(3, HIGH);
   offtime = pulseIn(3, LOW);
   period = offtime + ontime;
-  freq = 1000000/period; // determines the period of the signal by meausring the time the signal is HIGH and LOW. This functionality is reused in other signals
+  freq = floor(1000000/period); // determines the period of the signal by meausring the time the signal is HIGH and LOW. This functionality is reused in other signals
   
   if(offtime != 0) { // high signal when no input
     if(freq > 340.91 && freq < 366.78) {
        server.sendHeader("Access-Control-Allow-Origin", "*");
-       server.send(200, F("text/plain"), (String(freq)+" Hz"));
+       server.send(200, F("text/plain"), (String(round(freq))+" Hz"));
        ir353 = true;
     }
     else if(freq > 564.97 && freq < 585.28) {
       server.sendHeader("Access-Control-Allow-Origin", "*");
-      server.send(200, F("text/plain"), (String(freq)+" Hz"));
+      server.send(200, F("text/plain"), (String(round(freq))+" Hz"));
       ir571 = true;
     }
     else {
@@ -66,20 +66,21 @@ void irUpdate(){
 
 void magUpdate(){
   int val = analogRead(A1);
+  Serial.print("Mag");
   Serial.println(val);
-  if(val>355 && val<419){
-    server.sendHeader("Access-Control-Allow-Origin", "*");
-    server.send(200, F("text/plain"), F("None"));
-  }
-  else if(val<=355){
+  if(val<500){
     server.sendHeader("Access-Control-Allow-Origin", "*");
     server.send(200, F("text/plain"), F("South"));
     magsouth = true;
   }
-  else{
+  else if(val>609){
     server.sendHeader("Access-Control-Allow-Origin", "*");
     server.send(200, F("text/plain"), F("North"));
     magnorth = true;
+  }
+  else{
+    server.sendHeader("Access-Control-Allow-Origin", "*");
+    server.send(200, F("text/plain"), F("None"));
   }
 }
 
@@ -92,13 +93,15 @@ void rModUpdate(){
   if(ontime != 0){   
     if(freq < 152.18 && freq > 149.11){
       server.sendHeader("Access-Control-Allow-Origin", "*");
-      server.send(200, F("text/plain"), (String(freq)+" Hz"));
+      server.send(200, F("text/plain"), (String(round(freq))+" Hz"));
       mod151 = true;
+      Serial.println("151 modulating");
     }
     else if(freq < 243.84 && freq > 237.47)
       server.sendHeader("Access-Control-Allow-Origin", "*");
-      server.send(200, F("text/plain"), (String(freq)+" Hz"));
+      server.send(200, F("text/plain"), (String(round(freq))+" Hz"));
       mod239 = true;
+      Serial.println("239 modulating");
     }
     else {
       server.sendHeader("Access-Control-Allow-Origin", "*");
@@ -107,26 +110,24 @@ void rModUpdate(){
 }
 
 void rCarUpdate(){
-  /*
-    The nature of an analogue pin makes it less reliable than digital signals as it is more susceptible to noise within the signal
-    The amplitudes of the modulated parts of the radio wave are different between the two carrier frequencies. A resonant circuit is used to distinguish
-      between the two carrier frequencies however, only the 89 kHz was implemented. The code will measure the amplitude of the AM section of the signal
-      an if above a certain value when the coil is place x cm away from the top of the exorock, then the code will report the presence of the 89 kHz carrier
-      frequency. The value of the analogue if statement may cause the code to be unreliable because the amplitude of the signal is not constant across the
-      entire waveform and the data may be sampled in the non-AM region of the radio signal, hence not triggering the code. A more robust system needs to be 
-      implemented such as saving the state of the AM section analysis and whether it is above the threshold when the scan samples the non-AM section of the 
-      waveform instead of the AM section of the waveform. Testing will need to determine the suitable parameter value and need to secure the coils to the frame
-      of the frame to ensure the readings are as accurate as possible with the fine-tuning of the analogue read parameter values. 
-  */
   int tmp = analogRead(A0);
-  Serial.println(tmp);
+  int maxRead=0;
+  for(int i=0;i<10;i++){
+   tmp = analogRead(A0);
+   if(abs(tmp)>maxRead){
+    
+      maxRead=abs(tmp);
+    }
+  
+   }
+  Serial.println(maxRead);
   //float amplitude = tmp * (5000/1024);
-  if(tmp > 150) { // this analogue value may not be accurate
+  if(maxRead > 150) { // this analogue value may not be accurate
     // 89 kHz carrier frequency only
     server.sendHeader("Access-Control-Allow-Origin", "*");
     server.send(200, F("text/plain"), F("89 kHz"));
     Serial.println("carrier");
-    car89 = false;
+    car89 = true;
   }
   else {
     server.sendHeader("Access-Control-Allow-Origin", "*");
@@ -139,11 +140,11 @@ void usUpdate(){
   ontime = pulseIn(4, HIGH);
   offtime = pulseIn(4, LOW);
   period = offtime + ontime;
-  freq = 1000000/period;
+  freq = floor(1000/period); // reports frequency in kHz
   if(ontime != 0) {
-    if(freq > 38461.54 && freq < 43478.26) {
+    if(freq > 38.46154 && freq < 43.47826) {
       server.sendHeader("Access-Control-Allow-Origin", "*");
-      server.send(200, F("text/plain"), (String(freq)+" Hz"));
+      server.send(200, F("text/plain"), (String(round(freq))+" kHz"));
       acoustic = true;
     }
     }
@@ -159,27 +160,27 @@ void identifyrock(){
     server.sendHeader("Access-Control-Allow-Origin", "*");
     server.send(200, F("text/plain"), F("Thiotimoline"));
   }
-  else if(ir571 == true && acoustic == true) {
+  else if(ir571 == true) {
     // Netherite
     server.sendHeader("Access-Control-Allow-Origin", "*");
     server.send(200, F("text/plain"), F("Netherite"));
   }
-  else if(mod151 == true && acoustic == true){
+  else if(mod151 == true && (acoustic == true || (magsouth == false && magnorth == false))){
     // Gaborium
     server.sendHeader("Access-Control-Allow-Origin", "*");
     server.send(200, F("text/plain"), F("Gaborium"));
   }
-  else if(mod151 == true && magnorth == true){
+  else if(magnorth == true || mod151 == true && car89 == true){
     // Adamantine
     server.sendHeader("Access-Control-Allow-Origin", "*");
     server.send(200, F("text/plain"), F("Adamantine"));
   }
-  else if(mod239 == true && magsouth == true){
+  else if((mod239 == true && car89 == true) || magsouth == true){
     // Xirang
     server.sendHeader("Access-Control-Allow-Origin", "*");
     server.send(200, F("text/plain"), F("Xirang"));
   }
-  else if(mod239 == true){
+  else if(mod239 == true && ((magsouth == false && magnorth == false)||acoustic == false)){
     // Lathwaite
     server.sendHeader("Access-Control-Allow-Origin", "*");
     server.send(200, F("text/plain"), F("Lathwaite"));
