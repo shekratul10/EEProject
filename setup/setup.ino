@@ -67,7 +67,7 @@ void irUpdate(){
 void magUpdate(){
   int val = analogRead(A1);
   Serial.println(val);
-  if(val>355 && val<415){
+  if(val>355 && val<419){
     server.sendHeader("Access-Control-Allow-Origin", "*");
     server.send(200, F("text/plain"), F("None"));
   }
@@ -76,7 +76,7 @@ void magUpdate(){
     server.send(200, F("text/plain"), F("South"));
     magsouth = true;
   }
-  else if(val>=415){
+  else if(val>=419){
     server.sendHeader("Access-Control-Allow-Origin", "*");
     server.send(200, F("text/plain"), F("North"));
     magnorth = true;
