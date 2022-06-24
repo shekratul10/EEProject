@@ -1,8 +1,8 @@
 # Group 5/ASHB's EE Project 2022 
 
-## [final written report](https://imperiallondon-my.sharepoint.com/:w:/g/personal/an521_ic_ac_uk/EeuObOR-S-lHpdSKYnU6FhYBMaKFVtId1mpSv_Idt-HmbQ?e=gWFubt)
+## [Written report](https://imperiallondon-my.sharepoint.com/:w:/g/personal/an521_ic_ac_uk/EeuObOR-S-lHpdSKYnU6FhYBMaKFVtId1mpSv_Idt-HmbQ?e=gWFubt)
 ## [project mark scheme](https://github.com/shekratul10/EEProject/blob/main/Written%20report/EDP%20-%20final%20report%20mark%20sheet%202022%20-%20Copy.xlsx)
-## [video](https://imperiallondon-my.sharepoint.com/:v:/g/personal/eperea_ic_ac_uk/EdCU5DJ8DUpJqPFEcV0eLp4B5TmBCVaoO-RB1G3f6M7Cjg)
+## [Video](https://imperiallondon-my.sharepoint.com/:v:/g/personal/eperea_ic_ac_uk/EdCU5DJ8DUpJqPFEcV0eLp4B5TmBCVaoO-RB1G3f6M7Cjg)
 ## [Video Demo](https://imperiallondon-my.sharepoint.com/:v:/g/personal/rs2221_ic_ac_uk/EedtrnN3LAxCjQFRvVvkyTYB7NkDGX7jUrfwkagcI3mQWg?e=Vt8U9O)
 
 ## User Interface
