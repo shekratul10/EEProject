@@ -22,31 +22,16 @@ void loop() {
   // frequency is the reciprocal of period. 1000000 is used instead of 1 because the period measurements are in mircoseconds so it is converted to obtain Hertz
 
   if(ontime != 0) {
-    /*  
-      The code will not run unless a pulse is detected (when the signal is high)
-      Currently the code reports the frequency of a pulse that is measured from the circuit in Hertz
-      It reports all frequencies and not specific to frequencies we are required to detect (353 and 571 Hz)
-    */
+    // only outputs frequency when the measured frequency is within these percentile ranges, otherwise none is the output. 
     if(freq < 154.18 && freq > 147.11){
-      //Serial.println("151");
-      count151++;
+      Serial.println("151");
     }
-    else if(freq < 254.84 && freq > 242.07){
-      //Serial.println("239");
-      count239++;
+    else if(freq < 254.84 && freq > 237.66){
+      Serial.println("239");
+    }
+    else {
+      Serial.println("None"); 
     }
 
-    if((!count151 == 0 && count239 == 0) || (count151 == 0 && !count239 == 0)){
-       //Serial.println("0");
-      if(count151 == 2 && count239 == 0){
-        Serial.println("151 nodulating are detected");
-      }
-      else if(count151 == 0 && count239 == 2){
-        Serial.println("239 modulating are detected");
-      }
-    }
-    else if (!count151 == 0 && !count239 == 0){
-      count151 = count239 = 0;
-    }
   }
 }
