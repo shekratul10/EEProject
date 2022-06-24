@@ -143,12 +143,19 @@ a 40 40 0 0 1 0 -80" />
     //const ip = "172.20.10.6";
     
     var video = document.querySelector("#videoElement");
-    navigator.mediaDevices.enumerateDevices();
-
+    navigator.mediaDevices.enumerateDevices()
+.then(function(devices) {
+ // devices.forEach(function(device) {
+   // console.log(device.kind + ": " + device.label +
+     //           " id = " + device.deviceId);
+  //});
+}).catch(function(err) {
+   // console.log(err.name + ": " + err.message);
+  });
     if (navigator.mediaDevices.getUserMedia) {
         navigator.mediaDevices.getUserMedia({
                 video: {
-                    facingMode: "environment"
+                    deviceId: { exact: "4d00f14a42202dbf8ee184494350fb6b4886ac0ecd64e9383bf297efafa1f31c"}
                 }
             })
             .then(function (stream) {
